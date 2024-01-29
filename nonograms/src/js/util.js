@@ -1,4 +1,4 @@
-const createNode = (tagName, classNames, attribsObject, isSVG = false) => {
+const createNode = (parentNode, tagName, classNames = '', textContent = '', attribsObject = '', isSVG = false) => {
   let newNode;
 
   if (isSVG) {
@@ -16,6 +16,12 @@ const createNode = (tagName, classNames, attribsObject, isSVG = false) => {
       newNode.setAttribute(key, value);
     });
   }
+
+  if (textContent) {
+    newNode.textContent = textContent;
+  }
+
+  parentNode.append(newNode);
 
   return newNode;
 };

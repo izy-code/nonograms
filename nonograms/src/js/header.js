@@ -1,45 +1,29 @@
 import { createNode } from './util';
 
-const headerNode = createNode('header', 'header');
-const titleNode = createNode('h1', 'header__title');
-const selectsWrapperNode = createNode('div', 'header__selects');
-const sizeSelectNode = createNode('select', 'header__select header__select--size');
-const templateSelectNode = createNode('select', 'header__select header__select--template');
-const buttonsListNode = createNode('ul', 'header__buttons');
-const themeItemNode = createNode('li', 'header__item');
-const themeButtonNode = createNode('button', 'header__button header__button--theme_light', { type: 'button' });
-const themeButtonTextNode = createNode('span', 'visually-hidden');
-const soundItemNode = createNode('li', 'header__item');
-const soundButtonNode = createNode('button', 'header__button header__button--sound_on', { type: 'button' });
-const soundButtonTextNode = createNode('span', 'visually-hidden');
-const scoresItemNode = createNode('li', 'header__item');
-const scoresButtonNode = createNode('button', 'header__button header__button--scores', { type: 'button' });
-const scoresButtonTextNode = createNode('span', 'visually-hidden');
+const headerNode = createNode(document.body, 'header', 'header');
 
-titleNode.textContent = 'Nonograms';
-themeButtonTextNode.textContent = 'Dark theme';
-soundButtonTextNode.textContent = 'Sound on';
-scoresButtonTextNode.textContent = 'High score table';
+createNode(headerNode, 'h1', 'header__title', 'Nonograms');
+
+const selectsWrapperNode = createNode(headerNode, 'div', 'header__selects');
+const sizeSelectNode = createNode(selectsWrapperNode, 'select', 'header__select header__select--size');
+const templateSelectNode = createNode(selectsWrapperNode, 'select', 'header__select header__select--template');
+
+const buttonsListNode = createNode(headerNode, 'ul', 'header__buttons');
+
+const themeItemNode = createNode(buttonsListNode, 'li', 'header__item');
+const soundItemNode = createNode(buttonsListNode, 'li', 'header__item');
+const scoresItemNode = createNode(buttonsListNode, 'li', 'header__item');
+
+const themeButtonNode = createNode(themeItemNode, 'button', 'header__button header__button--theme_light', '', { type: 'button' });
+const soundButtonNode = createNode(soundItemNode, 'button', 'header__button header__button--sound_on', '', { type: 'button' });
+const scoresButtonNode = createNode(scoresItemNode, 'button', 'header__button header__button--scores', '', { type: 'button' });
+
+createNode(themeButtonNode, 'span', 'visually-hidden', 'Dark theme');
+createNode(soundButtonNode, 'span', 'visually-hidden', 'Sound on');
+createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
 //  Temporary options for selects
-const sizeOptionNode = createNode('option', 'header__option');
-const sizeOptionNode2 = createNode('option', 'header__option');
-const templateOptionNode = createNode('option', 'header__option');
-sizeOptionNode.textContent = '10x10';
-sizeOptionNode2.textContent = '15x15';
-templateOptionNode.textContent = 'Nutcracker';
-sizeSelectNode.append(sizeOptionNode, sizeOptionNode2);
-templateSelectNode.append(templateOptionNode);
+createNode(sizeSelectNode, 'option', 'header__option', '10x10');
+createNode(sizeSelectNode, 'option', 'header__option', '15x15');
+createNode(templateSelectNode, 'option', 'header__option', 'Nutcracker');
 // ****
-
-themeButtonNode.append(themeButtonTextNode);
-soundButtonNode.append(soundButtonTextNode);
-scoresButtonNode.append(scoresButtonTextNode);
-themeItemNode.append(themeButtonNode);
-soundItemNode.append(soundButtonNode);
-scoresItemNode.append(scoresButtonNode);
-buttonsListNode.append(themeItemNode, soundItemNode, scoresItemNode);
-selectsWrapperNode.append(sizeSelectNode, templateSelectNode);
-headerNode.append(titleNode, selectsWrapperNode, buttonsListNode);
-
-export { headerNode };

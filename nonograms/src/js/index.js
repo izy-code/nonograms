@@ -1,7 +1,7 @@
 import '../scss/style.scss';
 import { createNode } from './util';
-import { headerNode } from './header';
+import './header';
 
-const mainNode = createNode('main', 'main-content');
+const mainNode = createNode(document.body, 'main', 'main-content');
 
-document.body.append(headerNode, mainNode);
+document.body.append(mainNode);
