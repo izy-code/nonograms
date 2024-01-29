@@ -1,0 +1,31 @@
+@use "variables" as *;
+
+@mixin list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin media-laptop {
+  @media (max-width: $width-laptop) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media (max-width: $width-tablet) {
+    @content;
+  }
+}
+
+@mixin media-mobile {
+  @media (max-width: $width-mobile) {
+    @content;
+  }
+}
+
+@mixin media-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}

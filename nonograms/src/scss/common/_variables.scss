@@ -1,0 +1,50 @@
+@use "sass:color";
+
+$width-desktop: 1440px;
+$width-laptop: 1100px;
+$width-tablet: 768px;
+$width-mobile: 500px;
+
+$color-white: #fffefe;
+$color-black: #000000;
+$color-dark: #403f3d;
+$color-brown: #665f55;
+$color-light-brown: #b0907a;
+$color-semi-light: #c1b6ad;
+$color-light: #e1d4c9;
+$color-grey: #f0f0f0;
+$color-red: #ff4d4d;
+$color-green: #75b781;
+$color-light-blue: #1f69b8;
+$color-blue: #2b2ec0;
+$color-orange: #f0a658;
+$color-dark-orange: #d68e40;
+$color-brown-orange: #ce802d;
+
+:root {
+  --font-primary: "Arial", sans-serif;
+
+  --color-text-dark: #{$color-dark};
+  --color-text-light: #{$color-light};
+  --color-text-alert: #{$color-red};
+  --color-text-success: #{$color-green};
+  --color-text-accent: #{$color-blue};
+  --color-text-black: #{$color-black};
+
+  --color-bg-body: #{$color-green};
+  --color-bg-heading: #{$color-orange};
+  --color-bg-main: #{$color-white};
+  --color-bg-modal: #{$color-light};
+  --color-bg-backdrop: #{color.adjust($color-dark, $alpha: -0.2)};
+
+  --color-btn-basic: #{$color-orange};
+  --color-btn-hover: #{$color-dark-orange};
+  --color-btn-active: #{$color-brown-orange};
+
+  --color-bd-dark: #{$color-brown};
+  --color-bd-black: #{$color-black};
+
+  @media (max-width: $width-laptop) {
+    --color-bg-main: #{$color-light};
+  }
+}

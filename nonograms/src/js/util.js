@@ -1,0 +1,23 @@
+const createNode = (tagName, classNames, attribsObject, isSVG = false) => {
+  let newNode;
+
+  if (isSVG) {
+    newNode = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+  } else {
+    newNode = document.createElement(tagName);
+  }
+
+  if (classNames) {
+    newNode.setAttribute('class', classNames);
+  }
+
+  if (typeof attribsObject === 'object') {
+    Object.entries(attribsObject).forEach(([key, value]) => {
+      newNode.setAttribute(key, value);
+    });
+  }
+
+  return newNode;
+};
+
+export { createNode };
