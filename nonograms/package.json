@@ -3,9 +3,9 @@
   "private": true,
   "description": "Rolling Scopes School Stage-1 (JavaScript/Front-end 2023Q4) project «Nonograms»",
   "scripts": {
-    "lint": "npx eslint js",
+    "lint": "npx eslint ./src/js",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "npx prettier js --check",
+    "prettier": "npx prettier ./src/js --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
     "build": "webpack --mode=production --node-env=production",
