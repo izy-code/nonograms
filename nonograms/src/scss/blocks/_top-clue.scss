@@ -1,0 +1,28 @@
+.top-clue {
+  display: flex;
+  grid-area: 1 / 2 / 2 / 3;
+  background-color: var(--color-bg-clue);
+  box-shadow: inset 1.5px -1.5px var(--color-bd-black), -1.5px 0 var(--color-bd-black);
+}
+
+.top-clue__column {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  box-shadow: 0.5px 0 0 var(--color-bd-dark), inset -0.5px 0 0 var(--color-bd-dark);
+
+  &:nth-child(5n):not(:last-child) {
+    box-shadow: 1.5px 0 0 var(--color-bd-black), inset -1.5px 0 0 var(--color-bd-black);
+  }
+}
+
+.top-clue__cell {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  font-size: calc(var(--cell-size) * 0.75);
+  line-height: 1;
+}

@@ -36,6 +36,9 @@ $color-brown-orange: #ce802d;
   --color-bg-main: #{$color-white};
   --color-bg-modal: #{$color-light};
   --color-bg-backdrop: #{color.adjust($color-dark, $alpha: -0.2)};
+  --color-bg-gameboard: #{$color-orange};
+  --color-bg-gamefield: #{$color-grey};
+  --color-bg-clue: #{$color-light};
 
   --color-btn-basic: #{$color-orange};
   --color-btn-hover: #{$color-dark-orange};

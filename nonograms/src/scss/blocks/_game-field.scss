@@ -1,0 +1,34 @@
+.game-field {
+  display: flex;
+  flex-direction: column;
+  grid-area: 2 / 2 / 3 / 3;
+  background-color: var(--color-bg-gamefield);
+  outline: 1.5px solid var(--color-bd-black);
+}
+
+.game-field__row {
+  display: flex;
+  flex-grow: 1;
+  box-shadow: inset 1.5px 0 var(--color-bd-black), inset 0 -0.5px var(--color-bd-dark), 0 0.5px var(--color-bd-dark);
+
+  &:first-child {
+    box-shadow: inset 1.5px 0 var(--color-bd-black),
+      inset 0 1.5px var(--color-bd-black),
+      inset 0 -0.5px var(--color-bd-dark),
+      0 0.5px var(--color-bd-dark);
+  }
+
+  &:nth-child(5n):not(:last-child) {
+    box-shadow: inset 1.5px 0 var(--color-bd-black), inset 0 -1.5px var(--color-bd-black), 0 1.5px var(--color-bd-black);
+  }
+}
+
+.game-field__cell {
+  flex-grow: 1;
+  height: 100%;
+  box-shadow: 0.5px 0 var(--color-bd-dark), inset -0.5px 0 var(--color-bd-dark);
+
+  &:nth-child(5n):not(:last-child) {
+    box-shadow: 1.5px 0 var(--color-bd-black), inset -1.5px 0 var(--color-bd-black);
+  }
+}

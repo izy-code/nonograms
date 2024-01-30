@@ -1,9 +1,8 @@
 import '../scss/style.scss';
-import { createNode } from './util';
 import { renderHeader } from './header';
-
-const mainNode = createNode(document.body, 'main', 'main-content');
+import { renderMain } from './game-board';
+import { renderFooter } from './footer';
 
 renderHeader();
-
-document.body.append(mainNode);
+renderMain();
+renderFooter();
