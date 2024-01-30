@@ -1,0 +1,40 @@
+@use "../common/forward" as *;
+
+.footer {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.footer__button {
+  padding: 5px;
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--color-text-dark);
+  background-color: var(--color-btn-basic);
+  border: 2px solid var(--color-bd-dark);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+
+  &:hover,
+  &:focus-visible {
+    @include media-hover {
+      background-color: var(--color-btn-hover);
+      border-color: var(--color-bd-black);
+    }
+  }
+
+  &:active {
+    background-color: var(--color-btn-active);
+    border-color: var(--color-bd-black);
+  }
+}
+
+.footer__timer {
+  align-self: center;
+  font-size: 1.25rem;
+}
