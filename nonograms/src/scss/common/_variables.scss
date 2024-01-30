@@ -15,7 +15,7 @@ $color-light: #e1d4c9;
 $color-grey: #f0f0f0;
 $color-red: #ff4d4d;
 $color-green: #75b781;
-$color-light-blue: #1f69b8;
+$color-light-blue: #a4c6eb;
 $color-blue: #2b2ec0;
 $color-orange: #f0a658;
 $color-dark-orange: #d68e40;
@@ -43,8 +43,4 @@ $color-brown-orange: #ce802d;
 
   --color-bd-dark: #{$color-brown};
   --color-bd-black: #{$color-black};
-
-  @media (max-width: $width-laptop) {
-    --color-bg-main: #{$color-light};
-  }
 }
