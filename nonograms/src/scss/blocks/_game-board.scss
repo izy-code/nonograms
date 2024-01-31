@@ -1,23 +1,23 @@
 @use "../common/forward" as *;
 
 .game-board {
-  $horizontal-size: calc(var(--size) + var(--left-clue-size));
-  $vertical-size: calc(var(--size) + var(--top-clue-size));
-  --size: 15;
-  --top-clue-size: 8;
-  --left-clue-size: 8;
+  $horizontal-size: calc(var(--field-size) + var(--left-clue-width));
+  $vertical-size: calc(var(--field-size) + var(--top-clue-height));
+  --field-size: 15;
+  --top-clue-height: 8;
+  --left-clue-width: 8;
 
   display: grid;
-  grid-template-rows: calc((var(--top-clue-size) / $vertical-size) * 100%) 1fr;
-  grid-template-columns: calc((var(--left-clue-size) / $horizontal-size) * 100%) 1fr;
+  grid-template-rows: calc((var(--top-clue-height) / $vertical-size) * 100%) 1fr;
+  grid-template-columns: calc((var(--left-clue-width) / $horizontal-size) * 100%) 1fr;
   height: 100%;
   background-color: var(--color-bg-gameboard);
   outline: 4px solid var(--color-bd-black);
 
   @container main (max-width: #{$width-desktop}) {
     --min-dimension: calc(min(100cqw, 100cqh));
-    --max-clue-size: calc(max(var(--top-clue-size), var(--left-clue-size)));
-    --cell-size: calc(var(--min-dimension) / (var(--size) + var(--max-clue-size)));
+    --max-clue-size: calc(max(var(--top-clue-height), var(--left-clue-width)));
+    --cell-size: calc(var(--min-dimension) / (var(--field-size) + var(--max-clue-size)));
 
     width: var(--min-dimension);
     height: var(--min-dimension);

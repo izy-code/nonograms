@@ -1,4 +1,5 @@
 import { createNode } from './util';
+import { currentMatrix } from './header';
 
 const CluePosition = {
   TOP: 'top',
@@ -35,9 +36,34 @@ const renderMain = () => {
     }
   };
 
+  const getLeftClues = (matrix) => matrix.map(row =>
+    row.reduce((rowClues, cellValue) => {
+      if (cellValue) rowClues[rowClues.length - 1] += 1;
+      else rowClues.push(0);
+
+      return rowClues;
+    }, []).filter(item => item > 0)
+  );
+
+  const getTopClues = (matrix) => {
+    const transposedMatrix = matrix[0].map((_, columnIndex) => matrix.map(row => row[columnIndex]));
+
+    return getLeftClues(transposedMatrix);
+  };
+
+  const leftClues = getLeftClues(currentMatrix);
+  const topClues = getTopClues(currentMatrix);
+  const topClueHeight = topClues.reduce((max, row) => Math.max(max, row.length), 0);
+  const leftClueWidth = leftClues.reduce((max, row) => Math.max(max, row.length), 0);
+  const templateBoxedCellCount = leftClues.reduce((sum, clue) => sum + clue);
+
   restartClueNode(15, 8, CluePosition.TOP);
   restartClueNode(15, 8, CluePosition.LEFT);
   restartGameField(15);
+
+  gameBoardNode.style.setProperty('--field-size', currentMatrix.length);
+  gameBoardNode.style.setProperty('--top-clue-height', topClueHeight);
+  gameBoardNode.style.setProperty('--left-clue-width', leftClueWidth);
 
   gameFieldNode.addEventListener('click', (evt) => {
     const cellNode = evt.target.closest('.game-field__cell');
