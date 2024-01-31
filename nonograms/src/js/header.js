@@ -53,8 +53,16 @@ const getCurrentTemplateMatrix = () =>
 
 fillSizeSelectNode();
 fillTemplateSelectNode();
-sizeSelectNode.addEventListener('change', fillTemplateSelectNode);
-sizeSelectNode.addEventListener('change', () => startGame());
-templateSelectNode.addEventListener('change', () => startGame());
+
+sizeSelectNode.addEventListener('change', () => {
+  fillTemplateSelectNode();
+  startGame();
+  sizeSelectNode.blur();
+});
+
+templateSelectNode.addEventListener('change', () => {
+  startGame();
+  templateSelectNode.blur();
+});
 
 export { headerNode, getCurrentTemplateMatrix };
