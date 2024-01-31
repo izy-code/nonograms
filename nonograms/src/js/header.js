@@ -1,4 +1,5 @@
 import { createNode } from './util';
+import { templates } from './templates';
 
 const renderHeader = () => {
   const headerNode = createNode(document.body, 'header', 'header');
@@ -25,11 +26,30 @@ const renderHeader = () => {
   createNode(soundButtonNode, 'span', 'visually-hidden', 'Sound on');
   createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
-  //  Temporary options for selects
-  createNode(sizeSelectNode, 'option', 'header__option', '10x10');
-  createNode(sizeSelectNode, 'option', 'header__option', '15x15');
-  createNode(templateSelectNode, 'option', 'header__option', 'Nutcracker');
-  // ****
+  const fillSizeSelectNode = () => {
+    const sizes = [...new Set(templates.map((template) => template.size))];
+
+    sizeSelectNode.innerHTML = '';
+
+    sizes.forEach(size => {
+      createNode(sizeSelectNode, 'option', 'header__option', `${size}x${size}`);
+    });
+  };
+
+  const fillTemplateSelectNode = () => {
+    const selectedNumber = +sizeSelectNode.value.split('x')[0];
+
+    templateSelectNode.innerHTML = '';
+
+    const filteredTemplates = templates.filter((template) => template.size === selectedNumber);
+
+    filteredTemplates.forEach((template) => {
+      createNode(templateSelectNode, 'option', 'header__option', `${template.name}`);
+    });
+  };
+
+  fillSizeSelectNode();
+  fillTemplateSelectNode();
 };
 
 export { renderHeader };
