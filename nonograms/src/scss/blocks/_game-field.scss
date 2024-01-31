@@ -5,6 +5,7 @@
   background-color: var(--color-bg-gamefield);
   outline: 1.5px solid var(--color-bd-black);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .game-field__row {
