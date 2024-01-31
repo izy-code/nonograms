@@ -62,9 +62,8 @@ const getTopClues = (matrix) => {
 const renderGameBoard = (matrix) => {
   const leftClues = getLeftClues(matrix);
   const topClues = getTopClues(matrix);
-  console.log(leftClues, topClues);
-  const topClueHeight = topClues.reduce((max, row) => Math.max(max, row.length), 0);
-  const leftClueWidth = leftClues.reduce((max, row) => Math.max(max, row.length), 0);
+  const topClueHeight = topClues[0].length;
+  const leftClueWidth = leftClues[0].length;
   const templateBoxedCellCount = leftClues.reduce((sum, clue) => sum + clue);
 
   renderGameField(matrix.length);
