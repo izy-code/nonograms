@@ -21,7 +21,9 @@ const createNode = (parentNode, tagName, classNames = '', textContent = '', attr
     newNode.textContent = textContent;
   }
 
-  parentNode.append(newNode);
+  if (parentNode) {
+    parentNode.append(newNode);
+  }
 
   return newNode;
 };

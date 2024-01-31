@@ -1,7 +1,8 @@
 import { createNode } from './util';
 import { templates } from './templates';
+import { startGame } from './game';
 
-const headerNode = createNode(document.body, 'header', 'header');
+const headerNode = createNode(null, 'header', 'header');
 
 createNode(headerNode, 'h1', 'header__title', 'Nonograms');
 
@@ -53,6 +54,7 @@ const getCurrentTemplateMatrix = () =>
 fillSizeSelectNode();
 fillTemplateSelectNode();
 sizeSelectNode.addEventListener('change', fillTemplateSelectNode);
-sizeSelectNode.addEventListener('change', fillTemplateSelectNode);
+sizeSelectNode.addEventListener('change', () => startGame());
+templateSelectNode.addEventListener('change', () => startGame());
 
-export { getCurrentTemplateMatrix };
+export { headerNode, getCurrentTemplateMatrix };

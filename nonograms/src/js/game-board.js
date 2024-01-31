@@ -1,18 +1,19 @@
 import { createNode } from './util';
-import { getCurrentTemplateMatrix } from './header';
 
 const CluePosition = {
   TOP: 'top',
   LEFT: 'left'
 };
 
-const mainNode = createNode(document.body, 'main', 'main-content');
+const mainNode = createNode(null, 'main', 'main-content');
 const gameBoardNode = createNode(mainNode, 'div', 'game-board');
 const topClueNode = createNode(gameBoardNode, 'div', 'game-board__top-clue top-clue');
 const leftClueNode = createNode(gameBoardNode, 'div', 'game-board__left-clue left-clue');
 const gameFieldNode = createNode(gameBoardNode, 'div', 'game-board__game-field game-field');
 
 const renderGameField = (size) => {
+  gameFieldNode.innerHTML = '';
+
   for (let rowIndex = 0; rowIndex < size; rowIndex += 1) {
     const rowNode = createNode(gameFieldNode, 'div', 'game-field__row', '', { 'data-row': rowIndex });
 
@@ -25,6 +26,8 @@ const renderGameField = (size) => {
 const renderClueNode = (size, clues, position) => {
   const clueNode = (position === CluePosition.LEFT) ? leftClueNode : topClueNode;
   const clueGroupName = (position === CluePosition.LEFT) ? 'row' : 'column';
+
+  clueNode.innerHTML = '';
 
   for (let i = 0; i < size; i += 1) {
     const groupNode = createNode(clueNode, 'div', `${position}-clue__${clueGroupName}`);
@@ -97,4 +100,4 @@ gameFieldNode.addEventListener('contextmenu', (evt) => {
   }
 });
 
-renderGameBoard(getCurrentTemplateMatrix());
+export { mainNode, renderGameBoard };
