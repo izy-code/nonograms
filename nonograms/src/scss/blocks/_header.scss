@@ -92,6 +92,7 @@
     height: 36px;
     background-color: var(--color-text-dark);
     transition: background-color 0.3s ease-out;
+    mask-repeat: no-repeat;
   }
 
   &--theme_light::before {
