@@ -49,6 +49,20 @@
   border: 2px solid var(--color-bd-dark);
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease-out, border-color 0.3s ease-out, outline 0.3s ease-out;
+
+  &:hover,
+  &:focus-visible {
+    @include media-hover {
+      background-color: var(--color-btn-hover);
+      border-color: var(--color-bd-black);
+      outline: 0 solid var(--color-bd-black);
+    }
+  }
+
+  &:focus-within {
+    outline: 1px solid var(--color-bd-black);
+  }
 }
 
 .header__buttons {
