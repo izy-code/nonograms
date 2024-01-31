@@ -4,6 +4,7 @@
   grid-area: 2 / 2 / 3 / 3;
   background-color: var(--color-bg-gamefield);
   outline: 1.5px solid var(--color-bd-black);
+  cursor: pointer;
 }
 
 .game-field__row {
@@ -24,11 +25,41 @@
 }
 
 .game-field__cell {
+  display: flex;
   flex-grow: 1;
-  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
   box-shadow: 0.5px 0 var(--color-bd-dark), inset -0.5px 0 var(--color-bd-dark);
 
   &:nth-child(5n):not(:last-child) {
     box-shadow: 1.5px 0 var(--color-bd-black), inset -1.5px 0 var(--color-bd-black);
+  }
+
+  &--box {
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-bg-box);
+      transition: background-color 0.3s ease-out;
+      mask-repeat: no-repeat;
+      mask-image: url("../assets/img/box.svg");
+      mask-position: center;
+    }
+  }
+
+  &--cross {
+    &::before {
+      content: "";
+      width: calc(var(--cell-size) - 2px);
+      height: calc(var(--cell-size) - 2px);
+      background-color: var(--color-bg-box);
+      transition: background-color 0.3s ease-out;
+      mask-repeat: no-repeat;
+      mask-image: url("../assets/img/cross.svg");
+      mask-position: center;
+    }
   }
 }

@@ -8,18 +8,18 @@ $width-mobile: 500px;
 $color-white: #fffefe;
 $color-black: #000000;
 $color-dark: #403f3d;
-$color-brown: #665f55;
+$color-granite: #665f55;
 $color-light-brown: #b0907a;
 $color-semi-light: #c1b6ad;
 $color-light: #e1d4c9;
 $color-grey: #f0f0f0;
 $color-red: #ff4d4d;
 $color-green: #75b781;
-$color-light-blue: #a4c6eb;
 $color-blue: #2b2ec0;
 $color-orange: #f0a658;
 $color-dark-orange: #d68e40;
 $color-brown-orange: #ce802d;
+$color-brown: #a15401;
 
 :root {
   --font-primary: "Arial", sans-serif;
@@ -39,11 +39,13 @@ $color-brown-orange: #ce802d;
   --color-bg-gameboard: #{$color-orange};
   --color-bg-gamefield: #{$color-grey};
   --color-bg-clue: #{$color-light};
+  --color-bg-box: #{$color-brown};
+  --color-bg-cross: #{$color-brown};
 
   --color-btn-basic: #{$color-orange};
   --color-btn-hover: #{$color-dark-orange};
   --color-btn-active: #{$color-brown-orange};
 
-  --color-bd-dark: #{$color-brown};
+  --color-bd-dark: #{$color-granite};
   --color-bd-black: #{$color-black};
 }

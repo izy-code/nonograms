@@ -38,6 +38,26 @@ const renderMain = () => {
   restartClueNode(15, 8, CluePosition.TOP);
   restartClueNode(15, 8, CluePosition.LEFT);
   restartGameField(15);
+
+  gameFieldNode.addEventListener('click', (evt) => {
+    const cellNode = evt.target.closest('.game-field__cell');
+
+    if (cellNode) {
+      cellNode.classList.remove('game-field__cell--cross');
+      cellNode.classList.toggle('game-field__cell--box');
+    }
+  });
+
+  gameFieldNode.addEventListener('contextmenu', (evt) => {
+    const cellNode = evt.target.closest('.game-field__cell');
+
+    if (cellNode) {
+      evt.preventDefault();
+
+      cellNode.classList.remove('game-field__cell--box');
+      cellNode.classList.toggle('game-field__cell--cross');
+    }
+  });
 };
 
 export { renderMain };
