@@ -13,9 +13,9 @@
   outline: 4px solid var(--color-bd-black);
 
   @container main (max-width: #{$width-desktop}) {
-    --min-dimension: calc(min(100cqw, 100cqh));
-    --max-clue-size: calc(max(var(--top-clue-height), var(--left-clue-width)));
-    --cell-size: calc(var(--min-dimension) / (var(--field-size) + var(--max-clue-size)));
+    --inline-cell-size: calc(100cqw / (var(--field-size) + var(--left-clue-width)));
+    --block-cell-size: calc(100cqh / (var(--field-size) + var(--top-clue-height)));
+    --cell-size: calc(min(var(--inline-cell-size), var(--block-cell-size)));
 
     grid-template-rows: calc(var(--cell-size) * var(--top-clue-height)) 1fr;
     grid-template-columns: calc(var(--cell-size) * var(--left-clue-width)) 1fr;
