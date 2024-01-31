@@ -51,6 +51,10 @@
   cursor: pointer;
   transition: background-color 0.3s ease-out, border-color 0.3s ease-out, outline 0.3s ease-out;
 
+  &--template {
+    min-width: 152px;
+  }
+
   &:hover,
   &:focus-visible {
     @include media-hover {
