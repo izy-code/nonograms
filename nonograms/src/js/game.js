@@ -1,4 +1,5 @@
 import { initGameBoard } from './game-board';
+import { showModal } from './modal';
 
 const printSolution = (matrix) => {
   let result = '';
@@ -21,7 +22,7 @@ const startGame = (evt) => {
 
   const onBoxedCellsCountChange = (event) => {
     if (currentTemplateMatrix.length ** 2 === event.detail) {
-      alert('You won!');
+      showModal();
     }
   };
 
