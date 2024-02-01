@@ -15,14 +15,14 @@ const printSolution = (matrix) => {
 const listeners = new Map();
 
 const startGame = (evt) => {
-  const currentTemplateMatrix = evt.detail;
+  const currentTemplateMatrix = evt.detail.matrix;
 
   initGameBoard(currentTemplateMatrix);
   printSolution(currentTemplateMatrix);
 
   const onCorrectCellsCountChange = (event) => {
     if (currentTemplateMatrix.length ** 2 === event.detail) {
-      showModal();
+      showModal(`You have solved the ${evt.detail.name.toLowerCase()} nonogram!`);
       blockGameField();
     }
   };

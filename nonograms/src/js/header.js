@@ -50,19 +50,25 @@ const fillTemplateSelectNode = () => {
 const getCurrentTemplateMatrix = () =>
   templates.find((template) => template.name === templateSelectNode.value).matrix;
 
+const dispatchTemplateChange = () => {
+  dispatchCustomEvent(
+    templateSelectNode, 'templateChange', { name: templateSelectNode.value, matrix: getCurrentTemplateMatrix() }
+  );
+};
+
 const initHeader = () => {
   fillSizeSelectNode();
   fillTemplateSelectNode();
-  dispatchCustomEvent(sizeSelectNode, 'templateChange', getCurrentTemplateMatrix());
+  dispatchTemplateChange();
 
   sizeSelectNode.addEventListener('change', () => {
     fillTemplateSelectNode();
-    dispatchCustomEvent(sizeSelectNode, 'templateChange', getCurrentTemplateMatrix());
+    dispatchTemplateChange();
     sizeSelectNode.blur();
   });
 
   templateSelectNode.addEventListener('change', () => {
-    dispatchCustomEvent(templateSelectNode, 'templateChange', getCurrentTemplateMatrix());
+    dispatchTemplateChange();
     templateSelectNode.blur();
   });
 };
