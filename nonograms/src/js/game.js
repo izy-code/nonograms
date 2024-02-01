@@ -10,20 +10,17 @@ const printSolution = (matrix) => {
   console.clear();
   console.log(result);
 };
-const countTemplateBoxedCells =
-  (matrix) => matrix.reduce((sum, row) => sum + row.reduce((rowSum, cell) => rowSum + cell), 0);
 
 const listeners = new Map();
 
 const startGame = (evt) => {
   const currentTemplateMatrix = evt.detail;
-  const templateBoxedCellsCount = countTemplateBoxedCells(currentTemplateMatrix);
 
   initGameBoard(currentTemplateMatrix);
   printSolution(currentTemplateMatrix);
 
   const onBoxedCellsCountChange = (event) => {
-    if (templateBoxedCellsCount === event.detail) {
+    if (currentTemplateMatrix.length ** 2 === event.detail) {
       alert('You won!');
     }
   };

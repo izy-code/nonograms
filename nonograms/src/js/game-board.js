@@ -78,6 +78,9 @@ const renderGameBoard = (matrix) => {
   gameBoardNode.style.setProperty('--left-clue-width', leftClueWidth);
 };
 
+const countTemplateEmptyCells =
+  (matrix) => matrix.reduce((count, row) => count + row.reduce((rowCount, cell) => cell === 0 ? rowCount + 1 : rowCount, 0), 0);
+
 const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
   const cellRowIndex = parseInt(cellNode.parentNode.dataset.row, 10);
   const cellColIndex = parseInt(cellNode.dataset.column, 10);
@@ -88,18 +91,22 @@ const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
 let mouseListeners = [];
 
 const initGameBoard = (templateMatrix) => {
-  let currentBoxedCellsCount = 0;
+  let correctCellsCount = countTemplateEmptyCells(templateMatrix);
 
   const handleClick = (cellNode, isLeftClick = true) => {
     if (isMatchingTemplateCellBoxed(cellNode, templateMatrix)) {
       if (cellNode.classList.contains('game-field__cell--box')) {
-        currentBoxedCellsCount -= 1;
-        dispatchCustomEvent(cellNode, 'boxedCellsCountChange', currentBoxedCellsCount);
+        correctCellsCount -= 1;
       } else if (isLeftClick) {
-        currentBoxedCellsCount += 1;
-        dispatchCustomEvent(cellNode, 'boxedCellsCountChange', currentBoxedCellsCount);
+        correctCellsCount += 1;
       }
+    } else if (cellNode.classList.contains('game-field__cell--box')) {
+      correctCellsCount += 1;
+    } else if (isLeftClick) {
+      correctCellsCount -= 1;
     }
+
+    dispatchCustomEvent(cellNode, 'boxedCellsCountChange', correctCellsCount);
   };
 
   const onCellLeftClick = (evt) => {
