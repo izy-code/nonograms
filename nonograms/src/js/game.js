@@ -1,4 +1,4 @@
-import { initGameBoard } from './game-board';
+import { initGameBoard, blockGameField } from './game-board';
 import { showModal } from './modal';
 
 const printSolution = (matrix) => {
@@ -20,16 +20,17 @@ const startGame = (evt) => {
   initGameBoard(currentTemplateMatrix);
   printSolution(currentTemplateMatrix);
 
-  const onBoxedCellsCountChange = (event) => {
+  const onCorrectCellsCountChange = (event) => {
     if (currentTemplateMatrix.length ** 2 === event.detail) {
       showModal();
+      blockGameField();
     }
   };
 
-  document.removeEventListener('boxedCellsCountChange', listeners.get('boxedCellsCountChange'));
-  document.addEventListener('boxedCellsCountChange', onBoxedCellsCountChange);
+  document.removeEventListener('correctCellsCountChange', listeners.get('correctCellsCountChange'));
+  document.addEventListener('correctCellsCountChange', onCorrectCellsCountChange);
 
-  listeners.set('boxedCellsCountChange', onBoxedCellsCountChange);
+  listeners.set('correctCellsCountChange', onCorrectCellsCountChange);
 };
 
 const initGame = () => {
