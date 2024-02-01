@@ -28,4 +28,10 @@ const createNode = (parentNode, tagName, classNames = '', textContent = '', attr
   return newNode;
 };
 
-export { createNode };
+const dispatchCustomEvent = (node, eventType, detailObject) => {
+  node.dispatchEvent(new CustomEvent(eventType, {
+    bubbles: true, detail: detailObject
+  }));
+};
+
+export { createNode, dispatchCustomEvent };

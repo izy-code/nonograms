@@ -1,4 +1,4 @@
-import { createNode } from './util';
+import { createNode, dispatchCustomEvent } from './util';
 
 const CluePosition = {
   TOP: 'top',
@@ -52,6 +52,7 @@ const getLeftClues = (matrix) => {
   return steppedMatrix.map(row => {
     const paddingLength = leftClueWidth - row.length;
     const paddingStart = Array(paddingLength).fill('');
+
     return [...paddingStart, ...row];
   });
 };
@@ -67,7 +68,6 @@ const renderGameBoard = (matrix) => {
   const topClues = getTopClues(matrix);
   const topClueHeight = topClues[0].length;
   const leftClueWidth = leftClues[0].length;
-  const templateBoxedCellCount = leftClues.reduce((sum, clue) => sum + clue);
 
   renderGameField(matrix.length);
   renderClueNode(matrix.length, topClues, CluePosition.TOP);
@@ -76,28 +76,62 @@ const renderGameBoard = (matrix) => {
   gameBoardNode.style.setProperty('--field-size', matrix.length);
   gameBoardNode.style.setProperty('--top-clue-height', topClueHeight);
   gameBoardNode.style.setProperty('--left-clue-width', leftClueWidth);
-
-  return templateBoxedCellCount;
 };
 
-gameFieldNode.addEventListener('click', (evt) => {
-  const cellNode = evt.target.closest('.game-field__cell');
+const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
+  const cellRowIndex = parseInt(cellNode.parentNode.dataset.row, 10);
+  const cellColIndex = parseInt(cellNode.dataset.column, 10);
 
-  if (cellNode) {
-    cellNode.classList.remove('game-field__cell--cross');
-    cellNode.classList.toggle('game-field__cell--box');
-  }
-});
+  return templateMatrix[cellRowIndex][cellColIndex] === 1;
+};
 
-gameFieldNode.addEventListener('contextmenu', (evt) => {
-  const cellNode = evt.target.closest('.game-field__cell');
+let mouseListeners = [];
 
-  if (cellNode) {
-    evt.preventDefault();
+const initGameBoard = (templateMatrix) => {
+  let currentBoxedCellsCount = 0;
 
-    cellNode.classList.remove('game-field__cell--box');
-    cellNode.classList.toggle('game-field__cell--cross');
-  }
-});
+  const handleClick = (cellNode, isLeftClick = true) => {
+    if (isMatchingTemplateCellBoxed(cellNode, templateMatrix)) {
+      if (cellNode.classList.contains('game-field__cell--box')) {
+        currentBoxedCellsCount -= 1;
+        dispatchCustomEvent(cellNode, 'boxedCellsCountChange', currentBoxedCellsCount);
+      } else if (isLeftClick) {
+        currentBoxedCellsCount += 1;
+        dispatchCustomEvent(cellNode, 'boxedCellsCountChange', currentBoxedCellsCount);
+      }
+    }
+  };
 
-export { mainNode, renderGameBoard };
+  const onCellLeftClick = (evt) => {
+    const cellNode = evt.target.closest('.game-field__cell');
+
+    if (cellNode) {
+      handleClick(cellNode);
+      cellNode.classList.remove('game-field__cell--cross');
+      cellNode.classList.toggle('game-field__cell--box');
+    }
+  };
+
+  const onCellRightClick = (evt) => {
+    const cellNode = evt.target.closest('.game-field__cell');
+
+    if (cellNode) {
+      evt.preventDefault();
+
+      handleClick(cellNode, false);
+      cellNode.classList.remove('game-field__cell--box');
+      cellNode.classList.toggle('game-field__cell--cross');
+    }
+  };
+
+  renderGameBoard(templateMatrix);
+
+  gameFieldNode.removeEventListener('click', mouseListeners[0]);
+  gameFieldNode.removeEventListener('contextmenu', mouseListeners[1]);
+  gameFieldNode.addEventListener('click', onCellLeftClick);
+  gameFieldNode.addEventListener('contextmenu', onCellRightClick);
+
+  mouseListeners = [onCellLeftClick, onCellRightClick];
+};
+
+export { mainNode, initGameBoard };

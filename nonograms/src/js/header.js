@@ -1,6 +1,5 @@
-import { createNode } from './util';
+import { createNode, dispatchCustomEvent } from './util';
 import { templates } from './templates';
-import { startGame } from './game';
 
 const headerNode = createNode(null, 'header', 'header');
 
@@ -56,13 +55,13 @@ fillTemplateSelectNode();
 
 sizeSelectNode.addEventListener('change', () => {
   fillTemplateSelectNode();
-  startGame();
+  dispatchCustomEvent(sizeSelectNode, 'templateChange', getCurrentTemplateMatrix());
   sizeSelectNode.blur();
 });
 
 templateSelectNode.addEventListener('change', () => {
-  startGame();
+  dispatchCustomEvent(templateSelectNode, 'templateChange', getCurrentTemplateMatrix());
   templateSelectNode.blur();
 });
 
-export { headerNode, getCurrentTemplateMatrix };
+export { headerNode };
