@@ -4,8 +4,8 @@ const OPACITY_TRANSITION_TIME_MS = 600;
 
 const modalNode = createNode(null, 'div', 'modal modal--closed');
 const contentNode = createNode(modalNode, 'div', 'modal__content');
-const titleNode = createNode(contentNode, 'h2', 'modal__title', 'Great! You have solved the nonogram!');
-const textNode = createNode(contentNode, 'p', 'modal__text', 'You could choose another template and play again.');
+const titleNode = createNode(contentNode, 'h2', 'modal__title', 'You have solved the nonogram!');
+const textNode = createNode(contentNode, 'p', 'modal__text', 'Сhoose another template and play again.');
 const buttonNode = createNode(contentNode, 'button', 'modal__button', 'OK', { type: 'button' });
 
 const showModal = () => {

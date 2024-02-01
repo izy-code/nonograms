@@ -15,6 +15,7 @@ $color-light: #e1d4c9;
 $color-grey: #f0f0f0;
 $color-red: #ff4d4d;
 $color-green: #75b781;
+$color-green-bright: #5eaa2f;
 $color-blue: #2b2ec0;
 $color-orange: #f0a658;
 $color-dark-orange: #d68e40;
@@ -27,7 +28,7 @@ $color-brown: #256985;
   --color-text-dark: #{$color-dark};
   --color-text-light: #{$color-light};
   --color-text-alert: #{$color-red};
-  --color-text-success: #{$color-green};
+  --color-text-success: #{$color-green-bright};
   --color-text-accent: #{$color-blue};
   --color-text-black: #{$color-black};
 
