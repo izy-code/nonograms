@@ -1,11 +1,12 @@
 import { createNode, dispatchCustomEvent } from './util';
 import { templates } from './templates';
+import { getTimerNode } from './timer';
 
 const headerNode = createNode(null, 'header', 'header');
 
 createNode(headerNode, 'h1', 'header__title', 'Nonograms');
 
-const timerNode = createNode(headerNode, 'span', 'header__timer', '00:00');
+headerNode.append(getTimerNode());
 
 const selectsWrapperNode = createNode(headerNode, 'div', 'header__selects');
 const sizeSelectNode = createNode(

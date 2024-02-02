@@ -1,5 +1,6 @@
 import { initGameBoard, blockGameField } from './game-board';
 import { showModal } from './modal';
+import { stopTimer, getPassedTimeInSeconds } from './timer';
 
 const printSolution = (matrix) => {
   let result = '';
@@ -14,18 +15,19 @@ const printSolution = (matrix) => {
 
 const listeners = new Map();
 
-const startGame = (evt) => {
-  const currentTemplateMatrix = evt.detail.matrix;
+const startGame = (templateChangeEvt) => {
+  const currentTemplateMatrix = templateChangeEvt.detail.matrix;
 
   initGameBoard(currentTemplateMatrix);
   printSolution(currentTemplateMatrix);
 
-  const onCorrectCellsCountChange = (event) => {
-    if (currentTemplateMatrix.length ** 2 === event.detail) {
-      showModal(
-        `You have solved the ${evt.detail.name.toLowerCase()} nonogram!`
-      );
+  const onCorrectCellsCountChange = (cellsCountChangeEvt) => {
+    if (currentTemplateMatrix.length ** 2 === cellsCountChangeEvt.detail) {
+      stopTimer();
       blockGameField();
+      showModal(
+        `You have solved the ${templateChangeEvt.detail.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
+      );
     }
   };
 

@@ -1,4 +1,5 @@
 import { createNode, dispatchCustomEvent } from './util';
+import { startTimer, resetTimer } from './timer';
 
 const CluePosition = {
   TOP: 'top',
@@ -142,8 +143,9 @@ const blockGameField = () => {
 
 const initGameBoard = (templateMatrix) => {
   let correctCellsCount = countTemplateEmptyCells(templateMatrix);
+  let isFirstCellClick = true;
 
-  const changeCorrectCellsCount = (cellNode, isLeftClick = true) => {
+  const handelCellClick = (cellNode, isLeftClick = true) => {
     if (isMatchingTemplateCellBoxed(cellNode, templateMatrix)) {
       if (cellNode.classList.contains('game-field__cell--box')) {
         correctCellsCount -= 1;
@@ -156,6 +158,11 @@ const initGameBoard = (templateMatrix) => {
       correctCellsCount -= 1;
     }
 
+    if (isFirstCellClick) {
+      startTimer();
+    }
+
+    isFirstCellClick = false;
     dispatchCustomEvent(cellNode, 'correctCellsCountChange', correctCellsCount);
   };
 
@@ -163,7 +170,7 @@ const initGameBoard = (templateMatrix) => {
     const cellNode = evt.target.closest('.game-field__cell');
 
     if (cellNode) {
-      changeCorrectCellsCount(cellNode);
+      handelCellClick(cellNode);
       cellNode.classList.remove('game-field__cell--cross');
       cellNode.classList.toggle('game-field__cell--box');
     }
@@ -175,13 +182,14 @@ const initGameBoard = (templateMatrix) => {
     if (cellNode) {
       evt.preventDefault();
 
-      changeCorrectCellsCount(cellNode, false);
+      handelCellClick(cellNode, false);
       cellNode.classList.remove('game-field__cell--box');
       cellNode.classList.toggle('game-field__cell--cross');
     }
   };
 
   renderGameBoard(templateMatrix);
+  resetTimer();
   gameFieldNode.classList.remove('game-field--default-cursor');
 
   gameFieldNode.removeEventListener('click', mouseListeners[0]);
