@@ -53,7 +53,7 @@ const dispatchTemplateChange = () => {
   });
 };
 
-const initTemplateSelects = () => {
+const initTemplateSelect = () => {
   fillSizeSelectNode();
   fillTemplateSelectNode();
   dispatchTemplateChange();
@@ -72,4 +72,4 @@ const initTemplateSelects = () => {
 
 const getSelectsWrapperNode = () => selectsWrapperNode;
 
-export { getSelectsWrapperNode, initTemplateSelects };
+export { getSelectsWrapperNode, initTemplateSelect };

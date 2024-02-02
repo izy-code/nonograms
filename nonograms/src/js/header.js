@@ -1,6 +1,6 @@
 import { createNode } from './util';
 import { getTimerNode } from './timer';
-import { getSelectsWrapperNode, initTemplateSelects } from './template-selects';
+import { getSelectsWrapperNode, initTemplateSelect } from './template-select';
 
 const headerNode = createNode(null, 'header', 'header');
 
@@ -41,7 +41,7 @@ createNode(soundButtonNode, 'span', 'visually-hidden', 'Sound on');
 createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
 const initHeader = () => {
-  initTemplateSelects();
+  initTemplateSelect();
 };
 
 export { headerNode, initHeader };
