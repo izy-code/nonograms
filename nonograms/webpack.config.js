@@ -15,18 +15,33 @@ const config = {
   devServer: {
     open: true,
     host: 'localhost',
+    static: [
+      {
+        directory: path.resolve(__dirname, 'src', 'assets', 'img', 'favicons'),
+        publicPath: '/favicons',
+      },
+      {
+        directory: path.resolve(__dirname, 'src', 'assets', 'root'),
+        publicPath: '/',
+      },
+    ]
   },
   plugins: [
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src', 'assets'),
-          to: path.resolve(__dirname, 'dist', 'assets'),
-        }
+          from: path.resolve(__dirname, 'src', 'assets', 'img', 'favicons'),
+          to: path.resolve(__dirname, 'dist', 'favicons'),
+        },
+        {
+          from: path.resolve(__dirname, 'src', 'assets', 'root', 'site.webmanifest'),
+          to: path.resolve(__dirname, 'dist', 'site.webmanifest'),
+        },
       ],
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
+      favicon: path.resolve(__dirname, 'src', 'assets', 'root', 'favicon.ico'),
     }),
     new MiniCssExtractPlugin(),
 

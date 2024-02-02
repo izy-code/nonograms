@@ -100,25 +100,25 @@
   }
 
   &--theme_light::before {
-    mask-image: url("../assets/img/theme-light.svg");
+    mask-image: url("../assets/img/icons/theme-light.svg");
   }
 
   &--theme_dark::before {
-    mask-image: url("../assets/img/theme-dark.svg");
+    mask-image: url("../assets/img/icons/theme-dark.svg");
   }
 
   &--sound_on::before {
-    mask-image: url("../assets/img/sound-on.svg");
+    mask-image: url("../assets/img/icons/sound-on.svg");
   }
 
   &--sound_off::before {
-    mask-image: url("../assets/img/sound-off.svg");
+    mask-image: url("../assets/img/icons/sound-off.svg");
   }
 
   &--scores::before {
     width: 32px;
     height: 32px;
-    mask-image: url("../assets/img/scores.svg");
+    mask-image: url("../assets/img/icons/scores.svg");
   }
 
   &:hover,
