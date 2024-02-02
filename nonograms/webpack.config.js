@@ -24,7 +24,7 @@ const config = {
         directory: path.resolve(__dirname, 'src', 'assets', 'root'),
         publicPath: '/',
       },
-    ]
+    ],
   },
   plugins: [
     new CopyPlugin({
@@ -34,7 +34,13 @@ const config = {
           to: path.resolve(__dirname, 'dist', 'favicons'),
         },
         {
-          from: path.resolve(__dirname, 'src', 'assets', 'root', 'site.webmanifest'),
+          from: path.resolve(
+            __dirname,
+            'src',
+            'assets',
+            'root',
+            'site.webmanifest'
+          ),
           to: path.resolve(__dirname, 'dist', 'site.webmanifest'),
         },
       ],
@@ -61,8 +67,12 @@ const config = {
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           { loader: 'css-loader', options: { sourceMap: true } },
           'postcss-loader',
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          { loader: 'sass-loader', options: { sourceMap: true } },
         ],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|mp3)$/i,
+        type: 'asset',
       },
 
       // Add your rules for custom modules here

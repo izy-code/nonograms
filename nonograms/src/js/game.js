@@ -6,6 +6,12 @@ import {
   stopTimer,
   getPassedTimeInSeconds,
 } from './timer';
+import {
+  playBoxCellSound,
+  playCrossCellSound,
+  playEmptyCellSound,
+  playWinSound,
+} from './sound';
 
 const printSolution = (matrix) => {
   let result = '';
@@ -34,6 +40,7 @@ const startGame = (templateChangeEvt) => {
       showModal(
         `You have solved the ${templateChangeEvt.detail.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
       );
+      playWinSound();
     }
   };
 
@@ -58,7 +65,10 @@ const startGame = (templateChangeEvt) => {
 
 const initGame = () => {
   document.addEventListener('templateChange', startGame);
-  document.addEventListener('startTimer', startTimer);
+  document.addEventListener('timerStart', startTimer);
+  document.addEventListener('boxedCellFlagChange', playBoxCellSound);
+  document.addEventListener('crossedCellFlagChange', playCrossCellSound);
+  document.addEventListener('emptyCellFlagChange', playEmptyCellSound);
 };
 
 export { initGame };

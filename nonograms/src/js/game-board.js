@@ -177,11 +177,25 @@ const initGameBoard = (templateMatrix) => {
     }
 
     if (isFirstCellClick) {
-      dispatchCustomEvent(document, 'startTimer');
+      dispatchCustomEvent(document, 'timerStart');
     }
 
     isFirstCellClick = false;
     dispatchCustomEvent(document, 'correctCellsCountChange', correctCellsCount);
+  };
+
+  const dispatchCellFlag = (cellNode, isLeftClick = true) => {
+    if (isLeftClick) {
+      if (cellNode.classList.contains('game-field__cell--box')) {
+        dispatchCustomEvent(document, 'emptyCellFlagChange');
+      } else {
+        dispatchCustomEvent(document, 'boxedCellFlagChange');
+      }
+    } else if (cellNode.classList.contains('game-field__cell--cross')) {
+      dispatchCustomEvent(document, 'emptyCellFlagChange');
+    } else {
+      dispatchCustomEvent(document, 'crossedCellFlagChange');
+    }
   };
 
   const onCellLeftClick = (evt) => {
@@ -189,6 +203,7 @@ const initGameBoard = (templateMatrix) => {
 
     if (cellNode) {
       handelCellClick(cellNode);
+      dispatchCellFlag(cellNode);
       cellNode.classList.remove('game-field__cell--cross');
       cellNode.classList.toggle('game-field__cell--box');
     }
@@ -199,6 +214,7 @@ const initGameBoard = (templateMatrix) => {
 
     if (cellNode) {
       handelCellClick(cellNode, false);
+      dispatchCellFlag(cellNode, false);
       cellNode.classList.remove('game-field__cell--box');
       cellNode.classList.toggle('game-field__cell--cross');
     }
