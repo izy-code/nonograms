@@ -1,24 +1,12 @@
-import { createNode, dispatchCustomEvent } from './util';
-import { templates } from './templates';
+import { createNode } from './util';
 import { getTimerNode } from './timer';
+import { getSelectsWrapperNode, initTemplateSelects } from './template-selects';
 
 const headerNode = createNode(null, 'header', 'header');
 
 createNode(headerNode, 'h1', 'header__title', 'Nonograms');
 
-headerNode.append(getTimerNode());
-
-const selectsWrapperNode = createNode(headerNode, 'div', 'header__selects');
-const sizeSelectNode = createNode(
-  selectsWrapperNode,
-  'select',
-  'header__select header__select--size'
-);
-const templateSelectNode = createNode(
-  selectsWrapperNode,
-  'select',
-  'header__select header__select--template'
-);
+headerNode.append(getTimerNode(), getSelectsWrapperNode());
 
 const buttonsListNode = createNode(headerNode, 'ul', 'header__buttons');
 
@@ -52,61 +40,8 @@ createNode(themeButtonNode, 'span', 'visually-hidden', 'Dark theme');
 createNode(soundButtonNode, 'span', 'visually-hidden', 'Sound on');
 createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
-const fillSizeSelectNode = () => {
-  const sizes = [...new Set(templates.map((template) => template.size))];
-
-  sizeSelectNode.innerHTML = '';
-
-  sizes.forEach((size) => {
-    createNode(sizeSelectNode, 'option', 'header__option', `${size}x${size}`);
-  });
-};
-
-const fillTemplateSelectNode = () => {
-  const selectedNumber = +sizeSelectNode.value.split('x')[0];
-
-  templateSelectNode.innerHTML = '';
-
-  const filteredTemplates = templates.filter(
-    (template) => template.size === selectedNumber
-  );
-
-  filteredTemplates.forEach((template) => {
-    createNode(
-      templateSelectNode,
-      'option',
-      'header__option',
-      `${template.name}`
-    );
-  });
-};
-
-const getCurrentTemplateMatrix = () =>
-  templates.find((template) => template.name === templateSelectNode.value)
-    .matrix;
-
-const dispatchTemplateChange = () => {
-  dispatchCustomEvent(document, 'templateChange', {
-    name: templateSelectNode.value,
-    matrix: getCurrentTemplateMatrix(),
-  });
-};
-
 const initHeader = () => {
-  fillSizeSelectNode();
-  fillTemplateSelectNode();
-  dispatchTemplateChange();
-
-  sizeSelectNode.addEventListener('change', () => {
-    fillTemplateSelectNode();
-    dispatchTemplateChange();
-    sizeSelectNode.blur();
-  });
-
-  templateSelectNode.addEventListener('change', () => {
-    dispatchTemplateChange();
-    templateSelectNode.blur();
-  });
+  initTemplateSelects();
 };
 
 export { headerNode, initHeader };
