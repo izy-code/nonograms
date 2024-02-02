@@ -1,6 +1,11 @@
 import { initGameBoard, resetGameBoard, blockGameField } from './game-board';
 import { showModal } from './modal';
-import { stopTimer, getPassedTimeInSeconds } from './timer';
+import {
+  startTimer,
+  resetTimer,
+  stopTimer,
+  getPassedTimeInSeconds,
+} from './timer';
 
 const printSolution = (matrix) => {
   let result = '';
@@ -19,6 +24,7 @@ const startGame = (templateChangeEvt) => {
   const currentTemplateMatrix = templateChangeEvt.detail.matrix;
 
   initGameBoard(currentTemplateMatrix);
+  resetTimer();
   printSolution(currentTemplateMatrix);
 
   const onCorrectCellsCountChange = (cellsCountChangeEvt) => {
@@ -33,9 +39,10 @@ const startGame = (templateChangeEvt) => {
 
   const onGameRestart = () => {
     resetGameBoard(currentTemplateMatrix);
+    resetTimer();
   };
 
-  listeners.forEach(({eventType, handler}) =>
+  listeners.forEach(({ eventType, handler }) =>
     document.removeEventListener(eventType, handler)
   );
 
@@ -51,6 +58,7 @@ const startGame = (templateChangeEvt) => {
 
 const initGame = () => {
   document.addEventListener('templateChange', startGame);
+  document.addEventListener('startTimer', startTimer);
 };
 
 export { initGame };

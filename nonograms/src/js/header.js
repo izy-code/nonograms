@@ -86,7 +86,7 @@ const getCurrentTemplateMatrix = () =>
     .matrix;
 
 const dispatchTemplateChange = () => {
-  dispatchCustomEvent(templateSelectNode, 'templateChange', {
+  dispatchCustomEvent(document, 'templateChange', {
     name: templateSelectNode.value,
     matrix: getCurrentTemplateMatrix(),
   });

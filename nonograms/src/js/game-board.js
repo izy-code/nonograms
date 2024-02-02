@@ -1,5 +1,4 @@
 import { createNode, dispatchCustomEvent } from './util';
-import { startTimer, resetTimer } from './timer';
 
 const CluePosition = {
   TOP: 'top',
@@ -178,11 +177,11 @@ const initGameBoard = (templateMatrix) => {
     }
 
     if (isFirstCellClick) {
-      startTimer();
+      dispatchCustomEvent(document, 'startTimer');
     }
 
     isFirstCellClick = false;
-    dispatchCustomEvent(cellNode, 'correctCellsCountChange', correctCellsCount);
+    dispatchCustomEvent(document, 'correctCellsCountChange', correctCellsCount);
   };
 
   const onCellLeftClick = (evt) => {
@@ -206,7 +205,6 @@ const initGameBoard = (templateMatrix) => {
   };
 
   renderGameBoard(templateMatrix);
-  resetTimer();
   gameFieldNode.classList.remove('game-field--default-cursor');
 
   gameFieldNode.removeEventListener('click', mouseListeners[0]);
@@ -222,7 +220,6 @@ const resetGameBoard = (templateMatrix) => {
   isFirstCellClick = true;
 
   unblockGameField();
-  resetTimer();
 };
 
 gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
