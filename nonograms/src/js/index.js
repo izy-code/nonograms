@@ -9,6 +9,3 @@ document.body.append(headerNode, mainNode, footerNode, modalNode);
 
 initGame();
 initHeader();
-
-
-

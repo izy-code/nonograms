@@ -2,35 +2,55 @@ import { createNode, dispatchCustomEvent } from './util';
 
 const CluePosition = {
   TOP: 'top',
-  LEFT: 'left'
+  LEFT: 'left',
 };
 
 const mainNode = createNode(null, 'main', 'main-content');
 const gameBoardNode = createNode(mainNode, 'div', 'game-board');
-const topClueNode = createNode(gameBoardNode, 'div', 'game-board__top-clue top-clue');
-const leftClueNode = createNode(gameBoardNode, 'div', 'game-board__left-clue left-clue');
-const gameFieldNode = createNode(gameBoardNode, 'div', 'game-board__game-field game-field');
+const topClueNode = createNode(
+  gameBoardNode,
+  'div',
+  'game-board__top-clue top-clue'
+);
+const leftClueNode = createNode(
+  gameBoardNode,
+  'div',
+  'game-board__left-clue left-clue'
+);
+const gameFieldNode = createNode(
+  gameBoardNode,
+  'div',
+  'game-board__game-field game-field'
+);
 
 const renderGameField = (size) => {
   gameFieldNode.innerHTML = '';
 
   for (let rowIndex = 0; rowIndex < size; rowIndex += 1) {
-    const rowNode = createNode(gameFieldNode, 'div', 'game-field__row', '', { 'data-row': rowIndex });
+    const rowNode = createNode(gameFieldNode, 'div', 'game-field__row', '', {
+      'data-row': rowIndex,
+    });
 
     for (let colIndex = 0; colIndex < size; colIndex += 1) {
-      createNode(rowNode, 'div', 'game-field__cell', '', { 'data-column': colIndex });
+      createNode(rowNode, 'div', 'game-field__cell', '', {
+        'data-column': colIndex,
+      });
     }
   }
 };
 
 const renderClueNode = (size, clues, position) => {
-  const clueNode = (position === CluePosition.LEFT) ? leftClueNode : topClueNode;
-  const clueGroupName = (position === CluePosition.LEFT) ? 'row' : 'column';
+  const clueNode = position === CluePosition.LEFT ? leftClueNode : topClueNode;
+  const clueGroupName = position === CluePosition.LEFT ? 'row' : 'column';
 
   clueNode.innerHTML = '';
 
   for (let i = 0; i < size; i += 1) {
-    const groupNode = createNode(clueNode, 'div', `${position}-clue__${clueGroupName}`);
+    const groupNode = createNode(
+      clueNode,
+      'div',
+      `${position}-clue__${clueGroupName}`
+    );
 
     for (let j = 0; j < clues[i].length; j += 1) {
       createNode(groupNode, 'div', `${position}-clue__cell`, clues[i][j]);
@@ -39,17 +59,23 @@ const renderClueNode = (size, clues, position) => {
 };
 
 const getLeftClues = (matrix) => {
-  const steppedMatrix = matrix.map(row =>
-    row.reduce((rowClues, cellValue) => {
-      if (cellValue) rowClues[rowClues.length - 1] += 1;
-      else rowClues.push(0);
+  const steppedMatrix = matrix.map((row) =>
+    row
+      .reduce(
+        (rowClues, cellValue) => {
+          if (cellValue) rowClues[rowClues.length - 1] += 1;
+          else rowClues.push(0);
 
-      return rowClues;
-    }, [0]).filter(item => item > 0));
+          return rowClues;
+        },
+        [0]
+      )
+      .filter((item) => item > 0)
+  );
 
-  const leftClueWidth = Math.max(...steppedMatrix.map(row => row.length));
+  const leftClueWidth = Math.max(...steppedMatrix.map((row) => row.length));
 
-  return steppedMatrix.map(row => {
+  return steppedMatrix.map((row) => {
     const paddingLength = leftClueWidth - row.length;
     const paddingStart = Array(paddingLength).fill('');
 
@@ -58,7 +84,9 @@ const getLeftClues = (matrix) => {
 };
 
 const getTopClues = (matrix) => {
-  const transposedMatrix = matrix[0].map((_, columnIndex) => matrix.map(row => row[columnIndex]));
+  const transposedMatrix = matrix[0].map((_, columnIndex) =>
+    matrix.map((row) => row[columnIndex])
+  );
 
   return getLeftClues(transposedMatrix);
 };
@@ -78,8 +106,13 @@ const renderGameBoard = (matrix) => {
   gameBoardNode.style.setProperty('--left-clue-width', leftClueWidth);
 };
 
-const countTemplateEmptyCells =
-  (matrix) => matrix.reduce((count, row) => count + row.reduce((rowCount, cell) => cell === 0 ? rowCount + 1 : rowCount, 0), 0);
+const countTemplateEmptyCells = (matrix) =>
+  matrix.reduce(
+    (count, row) =>
+      count +
+      row.reduce((rowCount, cell) => (cell === 0 ? rowCount + 1 : rowCount), 0),
+    0
+  );
 
 const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
   const cellRowIndex = parseInt(cellNode.parentNode.dataset.row, 10);
@@ -91,9 +124,13 @@ const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
 let mouseListeners = [];
 
 const cleanCrossedCells = () => {
-  const crossedCells = gameFieldNode.querySelectorAll('.game-field__cell--cross');
+  const crossedCells = gameFieldNode.querySelectorAll(
+    '.game-field__cell--cross'
+  );
 
-  crossedCells.forEach(cell => cell.classList.remove('game-field__cell--cross'));
+  crossedCells.forEach((cell) =>
+    cell.classList.remove('game-field__cell--cross')
+  );
 };
 
 const blockGameField = () => {

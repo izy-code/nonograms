@@ -1,4 +1,11 @@
-const createNode = (parentNode, tagName, classNames = '', textContent = '', attribsObject = '', isSVG = false) => {
+const createNode = (
+  parentNode,
+  tagName,
+  classNames = '',
+  textContent = '',
+  attribsObject = '',
+  isSVG = false
+) => {
   let newNode;
 
   if (isSVG) {
@@ -29,9 +36,12 @@ const createNode = (parentNode, tagName, classNames = '', textContent = '', attr
 };
 
 const dispatchCustomEvent = (node, eventType, detailObject) => {
-  node.dispatchEvent(new CustomEvent(eventType, {
-    bubbles: true, detail: detailObject
-  }));
+  node.dispatchEvent(
+    new CustomEvent(eventType, {
+      bubbles: true,
+      detail: detailObject,
+    })
+  );
 };
 
 export { createNode, dispatchCustomEvent };

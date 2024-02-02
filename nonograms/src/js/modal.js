@@ -6,7 +6,9 @@ const modalNode = createNode(null, 'div', 'modal modal--closed');
 const contentNode = createNode(modalNode, 'div', 'modal__content');
 const titleNode = createNode(contentNode, 'h2', 'modal__title', 'Great!');
 const textNode = createNode(contentNode, 'p', 'modal__text');
-const buttonNode = createNode(contentNode, 'button', 'modal__button', 'OK', { type: 'button' });
+const buttonNode = createNode(contentNode, 'button', 'modal__button', 'OK', {
+  type: 'button',
+});
 
 const showModal = (textContent) => {
   setTimeout(() => {

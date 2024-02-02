@@ -4,8 +4,8 @@ import { showModal } from './modal';
 const printSolution = (matrix) => {
   let result = '';
 
-  matrix.forEach(row => {
-    result += `${row.map(cell => cell ? '⬛' : '⬜').join('')}\n`;
+  matrix.forEach((row) => {
+    result += `${row.map((cell) => (cell ? '⬛' : '⬜')).join('')}\n`;
   });
 
   console.clear();
@@ -22,13 +22,21 @@ const startGame = (evt) => {
 
   const onCorrectCellsCountChange = (event) => {
     if (currentTemplateMatrix.length ** 2 === event.detail) {
-      showModal(`You have solved the ${evt.detail.name.toLowerCase()} nonogram!`);
+      showModal(
+        `You have solved the ${evt.detail.name.toLowerCase()} nonogram!`
+      );
       blockGameField();
     }
   };
 
-  document.removeEventListener('correctCellsCountChange', listeners.get('correctCellsCountChange'));
-  document.addEventListener('correctCellsCountChange', onCorrectCellsCountChange);
+  document.removeEventListener(
+    'correctCellsCountChange',
+    listeners.get('correctCellsCountChange')
+  );
+  document.addEventListener(
+    'correctCellsCountChange',
+    onCorrectCellsCountChange
+  );
 
   listeners.set('correctCellsCountChange', onCorrectCellsCountChange);
 };

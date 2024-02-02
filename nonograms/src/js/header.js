@@ -8,8 +8,16 @@ createNode(headerNode, 'h1', 'header__title', 'Nonograms');
 const timerNode = createNode(headerNode, 'span', 'header__timer', '00:00');
 
 const selectsWrapperNode = createNode(headerNode, 'div', 'header__selects');
-const sizeSelectNode = createNode(selectsWrapperNode, 'select', 'header__select header__select--size');
-const templateSelectNode = createNode(selectsWrapperNode, 'select', 'header__select header__select--template');
+const sizeSelectNode = createNode(
+  selectsWrapperNode,
+  'select',
+  'header__select header__select--size'
+);
+const templateSelectNode = createNode(
+  selectsWrapperNode,
+  'select',
+  'header__select header__select--template'
+);
 
 const buttonsListNode = createNode(headerNode, 'ul', 'header__buttons');
 
@@ -17,9 +25,27 @@ const themeItemNode = createNode(buttonsListNode, 'li', 'header__item');
 const soundItemNode = createNode(buttonsListNode, 'li', 'header__item');
 const scoresItemNode = createNode(buttonsListNode, 'li', 'header__item');
 
-const themeButtonNode = createNode(themeItemNode, 'button', 'header__button header__button--theme_light', '', { type: 'button' });
-const soundButtonNode = createNode(soundItemNode, 'button', 'header__button header__button--sound_on', '', { type: 'button' });
-const scoresButtonNode = createNode(scoresItemNode, 'button', 'header__button header__button--scores', '', { type: 'button' });
+const themeButtonNode = createNode(
+  themeItemNode,
+  'button',
+  'header__button header__button--theme_light',
+  '',
+  { type: 'button' }
+);
+const soundButtonNode = createNode(
+  soundItemNode,
+  'button',
+  'header__button header__button--sound_on',
+  '',
+  { type: 'button' }
+);
+const scoresButtonNode = createNode(
+  scoresItemNode,
+  'button',
+  'header__button header__button--scores',
+  '',
+  { type: 'button' }
+);
 
 createNode(themeButtonNode, 'span', 'visually-hidden', 'Dark theme');
 createNode(soundButtonNode, 'span', 'visually-hidden', 'Sound on');
@@ -30,7 +56,7 @@ const fillSizeSelectNode = () => {
 
   sizeSelectNode.innerHTML = '';
 
-  sizes.forEach(size => {
+  sizes.forEach((size) => {
     createNode(sizeSelectNode, 'option', 'header__option', `${size}x${size}`);
   });
 };
@@ -40,20 +66,29 @@ const fillTemplateSelectNode = () => {
 
   templateSelectNode.innerHTML = '';
 
-  const filteredTemplates = templates.filter((template) => template.size === selectedNumber);
+  const filteredTemplates = templates.filter(
+    (template) => template.size === selectedNumber
+  );
 
   filteredTemplates.forEach((template) => {
-    createNode(templateSelectNode, 'option', 'header__option', `${template.name}`);
+    createNode(
+      templateSelectNode,
+      'option',
+      'header__option',
+      `${template.name}`
+    );
   });
 };
 
 const getCurrentTemplateMatrix = () =>
-  templates.find((template) => template.name === templateSelectNode.value).matrix;
+  templates.find((template) => template.name === templateSelectNode.value)
+    .matrix;
 
 const dispatchTemplateChange = () => {
-  dispatchCustomEvent(
-    templateSelectNode, 'templateChange', { name: templateSelectNode.value, matrix: getCurrentTemplateMatrix() }
-  );
+  dispatchCustomEvent(templateSelectNode, 'templateChange', {
+    name: templateSelectNode.value,
+    matrix: getCurrentTemplateMatrix(),
+  });
 };
 
 const initHeader = () => {
