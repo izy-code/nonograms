@@ -134,6 +134,15 @@ const cleanCrossedCells = () => {
   );
 };
 
+const cleanFilledCells = () => {
+  const filledCells = gameFieldNode.querySelectorAll('.game-field__cell');
+
+  filledCells.forEach((cell) => {
+    cell.classList.remove('game-field__cell--box');
+    cell.classList.remove('game-field__cell--cross');
+  });
+};
+
 const blockGameField = () => {
   gameFieldNode.removeEventListener('click', mouseListeners[0]);
   gameFieldNode.removeEventListener('contextmenu', mouseListeners[1]);
@@ -141,9 +150,19 @@ const blockGameField = () => {
   cleanCrossedCells();
 };
 
+const unblockGameField = () => {
+  gameFieldNode.addEventListener('click', mouseListeners[0]);
+  gameFieldNode.addEventListener('contextmenu', mouseListeners[1]);
+  gameFieldNode.classList.remove('game-field--default-cursor');
+  cleanFilledCells();
+};
+
+let correctCellsCount;
+let isFirstCellClick;
+
 const initGameBoard = (templateMatrix) => {
-  let correctCellsCount = countTemplateEmptyCells(templateMatrix);
-  let isFirstCellClick = true;
+  correctCellsCount = countTemplateEmptyCells(templateMatrix);
+  isFirstCellClick = true;
 
   const handelCellClick = (cellNode, isLeftClick = true) => {
     if (isMatchingTemplateCellBoxed(cellNode, templateMatrix)) {
@@ -180,8 +199,6 @@ const initGameBoard = (templateMatrix) => {
     const cellNode = evt.target.closest('.game-field__cell');
 
     if (cellNode) {
-      evt.preventDefault();
-
       handelCellClick(cellNode, false);
       cellNode.classList.remove('game-field__cell--box');
       cellNode.classList.toggle('game-field__cell--cross');
@@ -200,4 +217,14 @@ const initGameBoard = (templateMatrix) => {
   mouseListeners = [onCellLeftClick, onCellRightClick];
 };
 
-export { mainNode, initGameBoard, blockGameField };
+const resetGameBoard = (templateMatrix) => {
+  correctCellsCount = countTemplateEmptyCells(templateMatrix);
+  isFirstCellClick = true;
+
+  unblockGameField();
+  resetTimer();
+};
+
+gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
+
+export { mainNode, initGameBoard, resetGameBoard, blockGameField };

@@ -1,7 +1,14 @@
-import { createNode } from './util';
+import { createNode, dispatchCustomEvent } from './util';
 
 const footerNode = createNode(null, 'footer', 'footer');
 
+const restartButtonNode = createNode(
+  footerNode,
+  'button',
+  'footer__button',
+  'Restart game',
+  { type: 'button' }
+);
 const randomButtonNode = createNode(
   footerNode,
   'button',
@@ -30,5 +37,9 @@ const continueButtonNode = createNode(
   'Continue saved game',
   { type: 'button' }
 );
+
+restartButtonNode.addEventListener('click', () => {
+  dispatchCustomEvent(restartButtonNode, 'gameRestart');
+});
 
 export { footerNode };

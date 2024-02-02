@@ -1,4 +1,4 @@
-import { initGameBoard, blockGameField } from './game-board';
+import { initGameBoard, resetGameBoard, blockGameField } from './game-board';
 import { showModal } from './modal';
 import { stopTimer, getPassedTimeInSeconds } from './timer';
 
@@ -31,16 +31,22 @@ const startGame = (templateChangeEvt) => {
     }
   };
 
-  document.removeEventListener(
-    'correctCellsCountChange',
-    listeners.get('correctCellsCountChange')
+  const onGameRestart = () => {
+    resetGameBoard(currentTemplateMatrix);
+  };
+
+  listeners.forEach(({eventType, handler}) =>
+    document.removeEventListener(eventType, handler)
   );
+
   document.addEventListener(
     'correctCellsCountChange',
     onCorrectCellsCountChange
   );
+  document.addEventListener('gameRestart', onGameRestart);
 
   listeners.set('correctCellsCountChange', onCorrectCellsCountChange);
+  listeners.set('gameRestart', onGameRestart);
 };
 
 const initGame = () => {

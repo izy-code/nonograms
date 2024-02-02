@@ -35,7 +35,7 @@ const createNode = (
   return newNode;
 };
 
-const dispatchCustomEvent = (node, eventType, detailObject) => {
+const dispatchCustomEvent = (node, eventType, detailObject = null) => {
   node.dispatchEvent(
     new CustomEvent(eventType, {
       bubbles: true,
