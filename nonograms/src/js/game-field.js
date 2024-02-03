@@ -11,7 +11,9 @@ const gameFieldNode = createNode(
   'game-board__game-field game-field'
 );
 
-const renderGameField = (size) => {
+const renderGameField = () => {
+  const size = currentTemplateMatrix.length;
+
   gameFieldNode.innerHTML = '';
 
   for (let rowIndex = 0; rowIndex < size; rowIndex += 1) {
@@ -141,6 +143,8 @@ const initGameField = (templateMatrix) => {
   correctCellsCount = countTemplateEmptyCells();
   isFirstCellClick = true;
 
+  renderGameField();
+
   gameFieldNode.classList.remove('game-field--default-cursor');
 
   gameFieldNode.removeEventListener('click', mouseListeners[0]);
@@ -166,7 +170,6 @@ gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
 
 export {
   getGameFieldNode,
-  renderGameField,
   initGameField,
   resetGameField,
   saveGameField,

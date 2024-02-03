@@ -1,5 +1,5 @@
 import { createNode } from './util';
-import { getGameFieldNode, renderGameField, initGameField } from './game-field';
+import { getGameFieldNode, initGameField } from './game-field';
 
 const CluePosition = {
   TOP: 'top',
@@ -73,7 +73,7 @@ const getTopClues = (matrix) => {
   return getLeftClues(transposedMatrix);
 };
 
-const renderGameBoard = (matrix) => {
+const initClueNodes = (matrix) => {
   const leftClues = getLeftClues(matrix);
   const topClues = getTopClues(matrix);
   const topClueHeight = topClues[0].length;
@@ -81,7 +81,6 @@ const renderGameBoard = (matrix) => {
 
   renderClueNode(matrix.length, topClues, CluePosition.TOP);
   renderClueNode(matrix.length, leftClues, CluePosition.LEFT);
-  renderGameField(matrix.length);
 
   gameBoardNode.style.setProperty('--top-clue-height', topClueHeight);
   gameBoardNode.style.setProperty('--left-clue-width', leftClueWidth);
@@ -89,7 +88,7 @@ const renderGameBoard = (matrix) => {
 };
 
 const initGameBoard = (templateMatrix) => {
-  renderGameBoard(templateMatrix);
+  initClueNodes(templateMatrix);
   initGameField(templateMatrix);
 };
 
