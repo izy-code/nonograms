@@ -3,6 +3,7 @@ import crossCellSound from '../assets/sound/cross-cell.mp3';
 import emptyCellSound from '../assets/sound/empty-cell.mp3';
 import winSound from '../assets/sound/win.mp3';
 import { createNode } from './util';
+import { setLocalStorageObjectProperty } from './local-storage';
 
 let isSoundOn = true;
 
@@ -41,6 +42,7 @@ soundButtonNode.addEventListener('click', () => {
   soundButtonTextNode.textContent = isSoundOn ? 'Sound on' : 'Sound off';
   soundButtonNode.classList.toggle('header__button--sound_on');
   soundButtonNode.classList.toggle('header__button--sound_off');
+  setLocalStorageObjectProperty('isSoundOn', isSoundOn);
 });
 
 export {
