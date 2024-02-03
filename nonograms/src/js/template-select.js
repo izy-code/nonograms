@@ -71,6 +71,14 @@ const initTemplateSelect = () => {
   });
 };
 
+const setTemplateValues = (sizeValue, templateValue) => {
+  sizeSelectNode.value = sizeValue;
+
+  fillTemplateSelectNode();
+  templateSelectNode.value = templateValue;
+  templateSelectNode.dispatchEvent(new Event('change'));
+};
+
 const getSelectsWrapperNode = () => selectsWrapperNode;
 
-export { getSelectsWrapperNode, initTemplateSelect };
+export { getSelectsWrapperNode, initTemplateSelect, setTemplateValues };

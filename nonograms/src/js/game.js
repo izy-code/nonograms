@@ -1,10 +1,12 @@
 import { initGameBoard } from './game-board';
-import { resetGameField, getFlaggedCells } from './game-field';
+import { resetGameField, getFlaggedCells, fillFlaggedCells } from './game-field';
 import { showModal } from './modal';
+import { setTemplateValues } from './template-select';
 import {
   startTimer,
   resetTimer,
   stopTimer,
+  setTimer,
   getPassedTimeInSeconds,
 } from './timer';
 import {
@@ -13,7 +15,7 @@ import {
   playEmptyCellSound,
   playWinSound,
 } from './sound';
-import { setLocalStorageObjectProperty } from './local-storage';
+import { getLocalStorageProperty, setLocalStorageProperty } from './local-storage';
 
 let currentTemplate = {};
 
@@ -42,10 +44,19 @@ const onGameRestart = () => {
 };
 
 const onGameSave = () => {
-  setLocalStorageObjectProperty('savedTemplateSize', currentTemplate.size);
-  setLocalStorageObjectProperty('savedTemplateName', currentTemplate.name);
-  setLocalStorageObjectProperty('savedFlaggedCells', getFlaggedCells());
-  setLocalStorageObjectProperty('savedTimeInSeconds', getPassedTimeInSeconds());
+  setLocalStorageProperty('savedTemplateSize', currentTemplate.size);
+  setLocalStorageProperty('savedTemplateName', currentTemplate.name);
+  setLocalStorageProperty('savedFlaggedCells', getFlaggedCells());
+  setLocalStorageProperty('savedTimeInSeconds', getPassedTimeInSeconds());
+};
+
+const onGameContinue = () => {
+  setTemplateValues(
+    getLocalStorageProperty('savedTemplateSize'),
+    getLocalStorageProperty('savedTemplateName')
+  );
+  setTimer(getLocalStorageProperty('savedTimeInSeconds'));
+  fillFlaggedCells(getLocalStorageProperty('savedFlaggedCells'));
 };
 
 const onTemplateChange = (evt) => {
@@ -61,6 +72,7 @@ const initGame = () => {
   document.addEventListener('gameWin', onGameWin);
   document.addEventListener('gameRestart', onGameRestart);
   document.addEventListener('gameSave', onGameSave);
+  document.addEventListener('gameContinue', onGameContinue);
   document.addEventListener('timerStart', startTimer);
   document.addEventListener('boxedCellFlagChange', playBoxCellSound);
   document.addEventListener('crossedCellFlagChange', playCrossCellSound);

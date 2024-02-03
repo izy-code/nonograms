@@ -42,6 +42,12 @@ const resetTimer = () => {
   updateTimerDisplay();
 };
 
+const setTimer = (timeInSeconds) => {
+  passedSeconds = timeInSeconds;
+  updateTimerDisplay();
+  startTimer();
+};
+
 const getTimerNode = () => timerNode;
 
 export {
@@ -49,6 +55,7 @@ export {
   startTimer,
   stopTimer,
   resetTimer,
+  setTimer,
   getFormattedTime,
   getPassedTimeInSeconds,
 };

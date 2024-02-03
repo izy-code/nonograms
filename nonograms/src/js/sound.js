@@ -4,11 +4,11 @@ import emptyCellSound from '../assets/sound/empty-cell.mp3';
 import winSound from '../assets/sound/win.mp3';
 import { createNode } from './util';
 import {
-  getLocalStorageObjectProperty,
-  setLocalStorageObjectProperty,
+  getLocalStorageProperty,
+  setLocalStorageProperty,
 } from './local-storage';
 
-const localStorageSoundProperty = getLocalStorageObjectProperty('isSoundOn');
+const localStorageSoundProperty = getLocalStorageProperty('isSoundOn');
 
 let isSoundOn =
   localStorageSoundProperty === null ? true : localStorageSoundProperty;
@@ -48,7 +48,7 @@ soundButtonNode.addEventListener('click', () => {
   soundButtonTextNode.textContent = isSoundOn ? 'Sound on' : 'Sound off';
   soundButtonNode.classList.toggle('header__button--sound_on');
   soundButtonNode.classList.toggle('header__button--sound_off');
-  setLocalStorageObjectProperty('isSoundOn', isSoundOn);
+  setLocalStorageProperty('isSoundOn', isSoundOn);
 });
 
 export {

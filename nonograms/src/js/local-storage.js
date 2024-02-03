@@ -8,7 +8,7 @@ const getLocalStorageObject = () => JSON.parse(localStorage.getItem(LOCAL_STORAG
 const setLocalStorageObject = (object) =>
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(object));
 
-const getLocalStorageObjectProperty = (key) => {
+const getLocalStorageProperty = (key) => {
   if (!isLocalStorageObjectExist()) {
     return null;
   }
@@ -18,7 +18,7 @@ const getLocalStorageObjectProperty = (key) => {
   return localStorageObject[key];
 };
 
-const setLocalStorageObjectProperty = (key, value) => {
+const setLocalStorageProperty = (key, value) => {
   let localStorageObject = {};
 
   if (isLocalStorageObjectExist()) localStorageObject = getLocalStorageObject();
@@ -27,4 +27,4 @@ const setLocalStorageObjectProperty = (key, value) => {
   setLocalStorageObject(localStorageObject);
 };
 
-export { getLocalStorageObjectProperty, setLocalStorageObjectProperty };
+export { getLocalStorageProperty, setLocalStorageProperty };

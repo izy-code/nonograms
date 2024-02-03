@@ -44,5 +44,8 @@ restartButtonNode.addEventListener('click', () => {
 saveButtonNode.addEventListener('click', () => {
   dispatchCustomEvent(document, 'gameSave');
 });
+continueButtonNode.addEventListener('click', () => {
+  dispatchCustomEvent(document, 'gameContinue');
+});
 
 export { footerNode };

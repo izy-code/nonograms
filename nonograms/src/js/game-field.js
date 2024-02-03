@@ -1,5 +1,15 @@
 import { createNode, dispatchCustomEvent } from './util';
 
+const CellInfoIndex = {
+  ROW: 0,
+  COLUMN: 1,
+  FLAG_TYPE: 2,
+};
+const FlagType = {
+  BOX: 1,
+  CROSS: 2,
+};
+
 let currentTemplateMatrix = [];
 let correctCellsCount;
 let isFirstCellClick;
@@ -164,13 +174,13 @@ const getFlaggedCells = () => {
       flaggedCells.push([
         cellNode.parentNode.dataset.row,
         cellNode.dataset.column,
-        1,
+        FlagType.BOX,
       ]);
     } else if (cellNode.classList.contains('game-field__cell--cross')) {
       flaggedCells.push([
         cellNode.parentNode.dataset.row,
         cellNode.dataset.column,
-        2,
+        FlagType.CROSS,
       ]);
     }
   });
@@ -178,8 +188,35 @@ const getFlaggedCells = () => {
   return flaggedCells;
 };
 
+const fillFlaggedCells = (flaggedCells) => {
+  flaggedCells.forEach((cell) => {
+    const cellNode = gameFieldNode
+      .querySelector(`[data-row="${cell[CellInfoIndex.ROW]}"]`)
+      .querySelector(`[data-column="${cell[CellInfoIndex.COLUMN]}"]`);
+
+    cellNode.classList.add(
+      `game-field__cell--${
+        cell[CellInfoIndex.FLAG_TYPE] === FlagType.BOX ? 'box' : 'cross'
+      }`
+    );
+
+    if (
+      isMatchingTemplateCellBoxed(cellNode) &&
+      cell[CellInfoIndex.FLAG_TYPE] === FlagType.BOX
+    ) {
+      correctCellsCount += 1;
+    }
+  });
+};
+
 const getGameFieldNode = () => gameFieldNode;
 
 gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
 
-export { getGameFieldNode, initGameField, resetGameField, getFlaggedCells };
+export {
+  getGameFieldNode,
+  initGameField,
+  resetGameField,
+  getFlaggedCells,
+  fillFlaggedCells,
+};
