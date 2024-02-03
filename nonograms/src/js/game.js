@@ -1,4 +1,5 @@
-import { initGameBoard, resetGameBoard, blockGameField } from './game-board';
+import { initGameBoard } from './game-board';
+import { resetGameField, blockGameField } from './game-field';
 import { showModal } from './modal';
 import {
   startTimer,
@@ -45,7 +46,7 @@ const startGame = (templateChangeEvt) => {
   };
 
   const onGameRestart = () => {
-    resetGameBoard(currentTemplateMatrix);
+    resetGameField(currentTemplateMatrix);
     resetTimer();
   };
 
