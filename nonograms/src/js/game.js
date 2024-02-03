@@ -1,5 +1,5 @@
 import { initGameBoard } from './game-board';
-import { resetGameField, blockGameField, getFlaggedCells } from './game-field';
+import { resetGameField, getFlaggedCells } from './game-field';
 import { showModal } from './modal';
 import {
   startTimer,
@@ -27,15 +27,12 @@ const printSolution = (matrix) => {
   console.log(result);
 };
 
-const onCorrectCellsCountChange = (cellsCountChangeEvt) => {
-  if (currentTemplateObject.matrix.length ** 2 === cellsCountChangeEvt.detail) {
-    stopTimer();
-    blockGameField();
-    showModal(
-      `You have solved the ${currentTemplateObject.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
-    );
-    playWinSound();
-  }
+const onGameWin = () => {
+  stopTimer();
+  showModal(
+    `You have solved the ${currentTemplateObject.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
+  );
+  playWinSound();
 };
 
 const onGameRestart = () => {
@@ -45,8 +42,8 @@ const onGameRestart = () => {
 
 const onGameSave = () => {};
 
-const onTemplateChange = (templateChangeEvt) => {
-  currentTemplateObject = templateChangeEvt.detail;
+const onTemplateChange = (evt) => {
+  currentTemplateObject = evt.detail;
 
   initGameBoard(currentTemplateObject.matrix);
   resetTimer();
@@ -55,10 +52,7 @@ const onTemplateChange = (templateChangeEvt) => {
 
 const initGame = () => {
   document.addEventListener('templateChange', onTemplateChange);
-  document.addEventListener(
-    'correctCellsCountChange',
-    onCorrectCellsCountChange
-  );
+  document.addEventListener('gameWin', onGameWin);
   document.addEventListener('gameRestart', onGameRestart);
   document.addEventListener('gameSave', onGameSave);
   document.addEventListener('timerStart', startTimer);

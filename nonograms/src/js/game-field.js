@@ -93,7 +93,11 @@ const handelCellClick = (cellNode, isLeftClick = true) => {
   }
 
   isFirstCellClick = false;
-  dispatchCustomEvent(document, 'correctCellsCountChange', correctCellsCount);
+
+  if (correctCellsCount === currentTemplateMatrix.length ** 2) {
+    dispatchCustomEvent(document, 'gameWin', correctCellsCount);
+    blockGameField();
+  }
 };
 
 const dispatchCellFlag = (cellNode, isLeftClick = true) => {
@@ -165,6 +169,5 @@ export {
   renderGameField,
   initGameField,
   resetGameField,
-  blockGameField,
   saveGameField,
 };
