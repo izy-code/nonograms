@@ -13,8 +13,9 @@ import {
   playEmptyCellSound,
   playWinSound,
 } from './sound';
+import { setLocalStorageObjectProperty } from './local-storage';
 
-let currentTemplateObject = {};
+let currentTemplate = {};
 
 const printSolution = (matrix) => {
   let result = '';
@@ -30,24 +31,29 @@ const printSolution = (matrix) => {
 const onGameWin = () => {
   stopTimer();
   showModal(
-    `You have solved the ${currentTemplateObject.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
+    `You have solved the ${currentTemplate.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
   );
   playWinSound();
 };
 
 const onGameRestart = () => {
-  resetGameField(currentTemplateObject.matrix);
+  resetGameField(currentTemplate.matrix);
   resetTimer();
 };
 
-const onGameSave = () => {};
+const onGameSave = () => {
+  setLocalStorageObjectProperty('savedTemplateSize', currentTemplate.size);
+  setLocalStorageObjectProperty('savedTemplateName', currentTemplate.name);
+  setLocalStorageObjectProperty('savedFlaggedCells', getFlaggedCells());
+  setLocalStorageObjectProperty('savedTimeInSeconds', getPassedTimeInSeconds());
+};
 
 const onTemplateChange = (evt) => {
-  currentTemplateObject = evt.detail;
+  currentTemplate = evt.detail;
 
-  initGameBoard(currentTemplateObject.matrix);
+  initGameBoard(currentTemplate.matrix);
   resetTimer();
-  printSolution(currentTemplateObject.matrix);
+  printSolution(currentTemplate.matrix);
 };
 
 const initGame = () => {

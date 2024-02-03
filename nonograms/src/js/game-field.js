@@ -155,10 +155,31 @@ const resetGameField = () => {
   cleanFilledCells();
 };
 
-const saveGameField = () => {};
+const getFlaggedCells = () => {
+  const flaggedCells = [];
+  const cellNodes = gameFieldNode.querySelectorAll('.game-field__cell');
+
+  cellNodes.forEach((cellNode) => {
+    if (cellNode.classList.contains('game-field__cell--box')) {
+      flaggedCells.push([
+        cellNode.parentNode.dataset.row,
+        cellNode.dataset.column,
+        1,
+      ]);
+    } else if (cellNode.classList.contains('game-field__cell--cross')) {
+      flaggedCells.push([
+        cellNode.parentNode.dataset.row,
+        cellNode.dataset.column,
+        2,
+      ]);
+    }
+  });
+
+  return flaggedCells;
+};
 
 const getGameFieldNode = () => gameFieldNode;
 
 gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
 
-export { getGameFieldNode, initGameField, resetGameField, saveGameField };
+export { getGameFieldNode, initGameField, resetGameField, getFlaggedCells };
