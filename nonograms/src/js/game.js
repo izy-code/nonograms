@@ -1,5 +1,5 @@
 import { initGameBoard } from './game-board';
-import { resetGameField, blockGameField } from './game-field';
+import { resetGameField, blockGameField, getFlaggedCells } from './game-field';
 import { showModal } from './modal';
 import {
   startTimer,
@@ -14,6 +14,8 @@ import {
   playWinSound,
 } from './sound';
 
+let currentTemplateObject = {};
+
 const printSolution = (matrix) => {
   let result = '';
 
@@ -25,47 +27,40 @@ const printSolution = (matrix) => {
   console.log(result);
 };
 
-const listeners = new Map();
+const onCorrectCellsCountChange = (cellsCountChangeEvt) => {
+  if (currentTemplateObject.matrix.length ** 2 === cellsCountChangeEvt.detail) {
+    stopTimer();
+    blockGameField();
+    showModal(
+      `You have solved the ${currentTemplateObject.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
+    );
+    playWinSound();
+  }
+};
 
-const startGame = (templateChangeEvt) => {
-  const currentTemplateMatrix = templateChangeEvt.detail.matrix;
-
-  initGameBoard(currentTemplateMatrix);
+const onGameRestart = () => {
+  resetGameField(currentTemplateObject.matrix);
   resetTimer();
-  printSolution(currentTemplateMatrix);
+};
 
-  const onCorrectCellsCountChange = (cellsCountChangeEvt) => {
-    if (currentTemplateMatrix.length ** 2 === cellsCountChangeEvt.detail) {
-      stopTimer();
-      blockGameField();
-      showModal(
-        `You have solved the ${templateChangeEvt.detail.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
-      );
-      playWinSound();
-    }
-  };
+const onGameSave = () => {};
 
-  const onGameRestart = () => {
-    resetGameField(currentTemplateMatrix);
-    resetTimer();
-  };
+const onTemplateChange = (templateChangeEvt) => {
+  currentTemplateObject = templateChangeEvt.detail;
 
-  listeners.forEach(({ eventType, handler }) =>
-    document.removeEventListener(eventType, handler)
-  );
+  initGameBoard(currentTemplateObject.matrix);
+  resetTimer();
+  printSolution(currentTemplateObject.matrix);
+};
 
+const initGame = () => {
+  document.addEventListener('templateChange', onTemplateChange);
   document.addEventListener(
     'correctCellsCountChange',
     onCorrectCellsCountChange
   );
   document.addEventListener('gameRestart', onGameRestart);
-
-  listeners.set('correctCellsCountChange', onCorrectCellsCountChange);
-  listeners.set('gameRestart', onGameRestart);
-};
-
-const initGame = () => {
-  document.addEventListener('templateChange', startGame);
+  document.addEventListener('gameSave', onGameSave);
   document.addEventListener('timerStart', startTimer);
   document.addEventListener('boxedCellFlagChange', playBoxCellSound);
   document.addEventListener('crossedCellFlagChange', playCrossCellSound);
