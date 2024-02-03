@@ -1,7 +1,12 @@
 import { initGameBoard } from './game-board';
-import { resetGameField, getFlaggedCells, fillFlaggedCells } from './game-field';
+import {
+  resetGameField,
+  getFlaggedCells,
+  fillFlaggedCells,
+} from './game-field';
 import { showModal } from './modal';
 import { setTemplateValues } from './template-select';
+import { disableSaveButton, enableSaveButton } from './footer';
 import {
   startTimer,
   resetTimer,
@@ -15,7 +20,10 @@ import {
   playEmptyCellSound,
   playWinSound,
 } from './sound';
-import { getLocalStorageProperty, setLocalStorageProperty } from './local-storage';
+import {
+  getLocalStorageProperty,
+  setLocalStorageProperty,
+} from './local-storage';
 
 let currentTemplate = {};
 
@@ -36,11 +44,13 @@ const onGameWin = () => {
     `You have solved the ${currentTemplate.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
   );
   playWinSound();
+  disableSaveButton();
 };
 
 const onGameRestart = () => {
   resetGameField(currentTemplate.matrix);
   resetTimer();
+  enableSaveButton();
 };
 
 const onGameSave = () => {
@@ -57,6 +67,7 @@ const onGameContinue = () => {
   );
   setTimer(getLocalStorageProperty('savedTimeInSeconds'));
   fillFlaggedCells(getLocalStorageProperty('savedFlaggedCells'));
+  disableSaveButton();
 };
 
 const onTemplateChange = (evt) => {
@@ -65,18 +76,30 @@ const onTemplateChange = (evt) => {
   initGameBoard(currentTemplate.matrix);
   resetTimer();
   printSolution(currentTemplate.matrix);
+
+  enableSaveButton();
+};
+
+const onCellFlagChange = (evt) => {
+  if (evt.detail === 'box') {
+    playBoxCellSound();
+  } else if (evt.detail === 'cross') {
+    playCrossCellSound();
+  } else {
+    playEmptyCellSound();
+  }
+
+  enableSaveButton();
 };
 
 const initGame = () => {
   document.addEventListener('templateChange', onTemplateChange);
+  document.addEventListener('cellFlagChange', onCellFlagChange);
   document.addEventListener('gameWin', onGameWin);
   document.addEventListener('gameRestart', onGameRestart);
   document.addEventListener('gameSave', onGameSave);
   document.addEventListener('gameContinue', onGameContinue);
   document.addEventListener('timerStart', startTimer);
-  document.addEventListener('boxedCellFlagChange', playBoxCellSound);
-  document.addEventListener('crossedCellFlagChange', playCrossCellSound);
-  document.addEventListener('emptyCellFlagChange', playEmptyCellSound);
 };
 
 export { initGame };

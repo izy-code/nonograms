@@ -33,4 +33,12 @@
     background-color: var(--color-btn-active);
     border-color: var(--color-bd-black);
   }
+
+  &:disabled {
+    color: var(--color-text-dark);
+    background-color: var(--color-btn-basic);
+    border: 2px solid var(--color-bd-dark);
+    opacity: 0.6;
+    cursor: default;
+  }
 }

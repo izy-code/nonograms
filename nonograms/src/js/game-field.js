@@ -100,14 +100,14 @@ const handleCellClick = (cellNode, isLeftClick = true) => {
 const dispatchCellFlag = (cellNode, isLeftClick = true) => {
   if (isLeftClick) {
     if (cellNode.classList.contains('game-field__cell--box')) {
-      dispatchCustomEvent(document, 'emptyCellFlagChange');
+      dispatchCustomEvent(document, 'cellFlagChange', 'empty');
     } else {
-      dispatchCustomEvent(document, 'boxedCellFlagChange');
+      dispatchCustomEvent(document, 'cellFlagChange', 'box');
     }
   } else if (cellNode.classList.contains('game-field__cell--cross')) {
-    dispatchCustomEvent(document, 'emptyCellFlagChange');
+    dispatchCustomEvent(document, 'cellFlagChange', 'empty');
   } else {
-    dispatchCustomEvent(document, 'crossedCellFlagChange');
+    dispatchCustomEvent(document, 'cellFlagChange', 'cross');
   }
 };
 
@@ -115,8 +115,8 @@ const onCellLeftClick = (evt) => {
   const cellNode = evt.target.closest('.game-field__cell');
 
   if (cellNode) {
-    handleCellClick(cellNode);
     dispatchCellFlag(cellNode);
+    handleCellClick(cellNode);
     cellNode.classList.remove('game-field__cell--cross');
     cellNode.classList.toggle('game-field__cell--box');
   }

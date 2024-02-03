@@ -1,4 +1,5 @@
 import { createNode, dispatchCustomEvent } from './util';
+import { getLocalStorageProperty } from './local-storage';
 
 const footerNode = createNode(null, 'footer', 'footer');
 
@@ -38,14 +39,31 @@ const continueButtonNode = createNode(
   { type: 'button' }
 );
 
+const disableSaveButton = () => {
+  saveButtonNode.disabled = true;
+};
+
+const enableSaveButton = () => {
+  saveButtonNode.disabled = false;
+};
+
+if (getLocalStorageProperty('savedTemplateSize') === null) {
+  continueButtonNode.disabled = true;
+}
+
 restartButtonNode.addEventListener('click', () => {
   dispatchCustomEvent(document, 'gameRestart');
 });
 saveButtonNode.addEventListener('click', () => {
   dispatchCustomEvent(document, 'gameSave');
+  continueButtonNode.disabled = false;
 });
 continueButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameContinue');
+  if (getLocalStorageProperty('savedTemplateSize') === null) {
+    continueButtonNode.disabled = true;
+  } else {
+    dispatchCustomEvent(document, 'gameContinue');
+  }
 });
 
-export { footerNode };
+export { footerNode, disableSaveButton, enableSaveButton };
