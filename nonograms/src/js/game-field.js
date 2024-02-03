@@ -1,7 +1,6 @@
 import { createNode, dispatchCustomEvent } from './util';
 
 let currentTemplateMatrix = [];
-let mouseListeners = [];
 let correctCellsCount;
 let isFirstCellClick;
 
@@ -63,21 +62,7 @@ const cleanFilledCells = () => {
   });
 };
 
-const blockGameField = () => {
-  gameFieldNode.removeEventListener('click', mouseListeners[0]);
-  gameFieldNode.removeEventListener('contextmenu', mouseListeners[1]);
-  gameFieldNode.classList.add('game-field--default-cursor');
-  cleanCrossedCells();
-};
-
-const unblockGameField = () => {
-  gameFieldNode.addEventListener('click', mouseListeners[0]);
-  gameFieldNode.addEventListener('contextmenu', mouseListeners[1]);
-  gameFieldNode.classList.remove('game-field--default-cursor');
-  cleanFilledCells();
-};
-
-const handelCellClick = (cellNode, isLeftClick = true) => {
+const handleCellClick = (cellNode, isLeftClick = true) => {
   if (isMatchingTemplateCellBoxed(cellNode, currentTemplateMatrix)) {
     if (cellNode.classList.contains('game-field__cell--box')) {
       correctCellsCount -= 1;
@@ -120,7 +105,7 @@ const onCellLeftClick = (evt) => {
   const cellNode = evt.target.closest('.game-field__cell');
 
   if (cellNode) {
-    handelCellClick(cellNode);
+    handleCellClick(cellNode);
     dispatchCellFlag(cellNode);
     cellNode.classList.remove('game-field__cell--cross');
     cellNode.classList.toggle('game-field__cell--box');
@@ -131,11 +116,26 @@ const onCellRightClick = (evt) => {
   const cellNode = evt.target.closest('.game-field__cell');
 
   if (cellNode) {
-    handelCellClick(cellNode, false);
+    handleCellClick(cellNode, false);
     dispatchCellFlag(cellNode, false);
     cellNode.classList.remove('game-field__cell--box');
     cellNode.classList.toggle('game-field__cell--cross');
   }
+};
+
+function blockGameField() {
+  gameFieldNode.removeEventListener('click', onCellLeftClick);
+  gameFieldNode.removeEventListener('contextmenu', onCellRightClick);
+  gameFieldNode.classList.add('game-field--default-cursor');
+  cleanCrossedCells();
+}
+
+const handleGameField = () => {
+  gameFieldNode.removeEventListener('click', onCellLeftClick);
+  gameFieldNode.removeEventListener('contextmenu', onCellRightClick);
+  gameFieldNode.addEventListener('click', onCellLeftClick);
+  gameFieldNode.addEventListener('contextmenu', onCellRightClick);
+  gameFieldNode.classList.remove('game-field--default-cursor');
 };
 
 const initGameField = (templateMatrix) => {
@@ -144,22 +144,15 @@ const initGameField = (templateMatrix) => {
   isFirstCellClick = true;
 
   renderGameField();
-
-  gameFieldNode.classList.remove('game-field--default-cursor');
-
-  gameFieldNode.removeEventListener('click', mouseListeners[0]);
-  gameFieldNode.removeEventListener('contextmenu', mouseListeners[1]);
-  gameFieldNode.addEventListener('click', onCellLeftClick);
-  gameFieldNode.addEventListener('contextmenu', onCellRightClick);
-
-  mouseListeners = [onCellLeftClick, onCellRightClick];
+  handleGameField();
 };
 
 const resetGameField = () => {
   correctCellsCount = countTemplateEmptyCells();
   isFirstCellClick = true;
 
-  unblockGameField();
+  handleGameField();
+  cleanFilledCells();
 };
 
 const saveGameField = () => {};
@@ -168,9 +161,4 @@ const getGameFieldNode = () => gameFieldNode;
 
 gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
 
-export {
-  getGameFieldNode,
-  initGameField,
-  resetGameField,
-  saveGameField,
-};
+export { getGameFieldNode, initGameField, resetGameField, saveGameField };
