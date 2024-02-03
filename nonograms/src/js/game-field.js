@@ -27,19 +27,19 @@ const renderGameField = (size) => {
   }
 };
 
-const countTemplateEmptyCells = (matrix) =>
-  matrix.reduce(
+const countTemplateEmptyCells = () =>
+  currentTemplateMatrix.reduce(
     (count, row) =>
       count +
       row.reduce((rowCount, cell) => (cell === 0 ? rowCount + 1 : rowCount), 0),
     0
   );
 
-const isMatchingTemplateCellBoxed = (cellNode, templateMatrix) => {
+const isMatchingTemplateCellBoxed = (cellNode) => {
   const cellRowIndex = parseInt(cellNode.parentNode.dataset.row, 10);
   const cellColIndex = parseInt(cellNode.dataset.column, 10);
 
-  return templateMatrix[cellRowIndex][cellColIndex] === 1;
+  return currentTemplateMatrix[cellRowIndex][cellColIndex] === 1;
 };
 
 const cleanCrossedCells = () => {
@@ -134,7 +134,7 @@ const onCellRightClick = (evt) => {
 
 const initGameField = (templateMatrix) => {
   currentTemplateMatrix = templateMatrix;
-  correctCellsCount = countTemplateEmptyCells(templateMatrix);
+  correctCellsCount = countTemplateEmptyCells();
   isFirstCellClick = true;
 
   gameFieldNode.classList.remove('game-field--default-cursor');
@@ -147,8 +147,8 @@ const initGameField = (templateMatrix) => {
   mouseListeners = [onCellLeftClick, onCellRightClick];
 };
 
-const resetGameField = (templateMatrix) => {
-  correctCellsCount = countTemplateEmptyCells(templateMatrix);
+const resetGameField = () => {
+  correctCellsCount = countTemplateEmptyCells();
   isFirstCellClick = true;
 
   unblockGameField();
