@@ -3,15 +3,21 @@ import crossCellSound from '../assets/sound/cross-cell.mp3';
 import emptyCellSound from '../assets/sound/empty-cell.mp3';
 import winSound from '../assets/sound/win.mp3';
 import { createNode } from './util';
-import { setLocalStorageObjectProperty } from './local-storage';
+import {
+  getLocalStorageObjectProperty,
+  setLocalStorageObjectProperty,
+} from './local-storage';
 
-let isSoundOn = true;
+const localStorageSoundProperty = getLocalStorageObjectProperty('isSoundOn');
+
+let isSoundOn =
+  localStorageSoundProperty === null ? true : localStorageSoundProperty;
 
 const soundItemNode = createNode(null, 'li', 'header__item');
 const soundButtonNode = createNode(
   soundItemNode,
   'button',
-  'header__button header__button--sound_on',
+  `header__button header__button--sound_${isSoundOn ? 'on' : 'off'}`,
   '',
   { type: 'button' }
 );
@@ -19,7 +25,7 @@ const soundButtonTextNode = createNode(
   soundButtonNode,
   'span',
   'visually-hidden',
-  'Sound on'
+  `Sound ${isSoundOn ? 'on' : 'off'}`
 );
 
 const playSound = (soundSrc) => {
