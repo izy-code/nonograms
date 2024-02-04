@@ -3,10 +3,16 @@ import {
   resetGameField,
   getFlaggedCells,
   fillFlaggedCells,
+  showSolution,
 } from './game-field';
 import { showModal } from './modal';
 import { setTemplateValues } from './template-select';
-import { disableSaveButton, enableSaveButton } from './footer';
+import {
+  disableSaveButton,
+  enableSaveButton,
+  enableSolutionButton,
+  disableSolutionButton
+} from './footer';
 import {
   startTimer,
   resetTimer,
@@ -64,12 +70,14 @@ const onGameWin = () => {
   );
   playWinSound();
   disableSaveButton();
+  disableSolutionButton();
 };
 
 const onGameReset = () => {
   resetGameField(currentTemplate.matrix);
   resetTimer();
   enableSaveButton();
+  enableSolutionButton();
 };
 
 const onGameSave = () => {
@@ -102,6 +110,12 @@ const onGameRandom = () => {
   }
 };
 
+const onGameSolution = () => {
+  showSolution();
+  resetTimer();
+  disableSaveButton();
+};
+
 const onTemplateChange = (evt) => {
   currentTemplate = evt.detail;
 
@@ -110,6 +124,7 @@ const onTemplateChange = (evt) => {
   printSolution(currentTemplate.matrix);
 
   enableSaveButton();
+  enableSolutionButton();
 
   if (!hasTemplateChangedRandomly) {
     excludedDataIndexes = [
@@ -140,6 +155,7 @@ const initGame = () => {
   document.addEventListener('gameSave', onGameSave);
   document.addEventListener('gameContinue', onGameContinue);
   document.addEventListener('gameRandom', onGameRandom);
+  document.addEventListener('gameSolution', onGameSolution);
   document.addEventListener('timerStart', startTimer);
 };
 

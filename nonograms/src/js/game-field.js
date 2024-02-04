@@ -205,6 +205,23 @@ const fillFlaggedCells = (flaggedCells) => {
       cell[CellInfoIndex.FLAG_TYPE] === FlagType.BOX
     ) {
       correctCellsCount += 1;
+    } else if (cell[CellInfoIndex.FLAG_TYPE] === FlagType.BOX) {
+      correctCellsCount -= 1;
+    }
+  });
+};
+
+const showSolution = () => {
+  const cellNodes = gameFieldNode.querySelectorAll('.game-field__cell');
+
+  gameFieldNode.removeEventListener('click', onCellLeftClick);
+  gameFieldNode.removeEventListener('contextmenu', onCellRightClick);
+  gameFieldNode.classList.add('game-field--default-cursor');
+  cleanFilledCells();
+
+  cellNodes.forEach((cellNode) => {
+    if (isMatchingTemplateCellBoxed(cellNode)) {
+      cellNode.classList.add('game-field__cell--box');
     }
   });
 };
@@ -219,4 +236,5 @@ export {
   resetGameField,
   getFlaggedCells,
   fillFlaggedCells,
+  showSolution,
 };

@@ -47,6 +47,14 @@ const enableSaveButton = () => {
   saveButtonNode.disabled = false;
 };
 
+const disableSolutionButton = () => {
+  solutionButtonNode.disabled = true;
+};
+
+const enableSolutionButton = () => {
+  solutionButtonNode.disabled = false;
+};
+
 if (getLocalStorageProperty('savedTemplateSize') === null) {
   continueButtonNode.disabled = true;
 }
@@ -68,5 +76,15 @@ continueButtonNode.addEventListener('click', () => {
 randomButtonNode.addEventListener('click', () => {
   dispatchCustomEvent(document, 'gameRandom');
 });
+solutionButtonNode.addEventListener('click', () => {
+  dispatchCustomEvent(document, 'gameSolution');
+  disableSolutionButton();
+});
 
-export { footerNode, disableSaveButton, enableSaveButton };
+export {
+  footerNode,
+  disableSaveButton,
+  enableSaveButton,
+  disableSolutionButton,
+  enableSolutionButton
+};
