@@ -3,8 +3,9 @@
   flex-direction: column;
   grid-area: 2 / 2 / 3 / 3;
   background-color: var(--color-bg-gamefield);
-  outline: 1.5px solid var(--color-bd-black);
+  outline: 2px solid var(--color-bd-second);
   cursor: pointer;
+  transition: background-color 0.6s ease-out, outline 0.6s ease-out;
   -webkit-tap-highlight-color: transparent;
 
   &--default-cursor {
@@ -15,17 +16,18 @@
 .game-field__row {
   display: flex;
   flex-grow: 1;
-  box-shadow: inset 1.5px 0 var(--color-bd-black), inset 0 -0.5px var(--color-bd-dark), 0 0.5px var(--color-bd-dark);
+  box-shadow: inset 2px 0 var(--color-bd-second), inset 0 -0.5px var(--color-bd-basic), 0 0.5px var(--color-bd-basic);
+  transition: box-shadow 0.6s ease-out;
 
   &:first-child {
-    box-shadow: inset 1.5px 0 var(--color-bd-black),
-      inset 0 1.5px var(--color-bd-black),
-      inset 0 -0.5px var(--color-bd-dark),
-      0 0.5px var(--color-bd-dark);
+    box-shadow: inset 2px 0 var(--color-bd-second),
+      inset 0 2px var(--color-bd-second),
+      inset 0 -0.5px var(--color-bd-basic),
+      0 0.5px var(--color-bd-basic);
   }
 
   &:nth-child(5n):not(:last-child) {
-    box-shadow: inset 1.5px 0 var(--color-bd-black), inset 0 -1.5px var(--color-bd-black), 0 1.5px var(--color-bd-black);
+    box-shadow: inset 2px 0 var(--color-bd-second), inset 0 -2px var(--color-bd-second), 0 2px var(--color-bd-second);
   }
 }
 
@@ -36,10 +38,13 @@
   align-items: center;
   width: var(--cell-size);
   height: var(--cell-size);
-  box-shadow: 0.5px 0 var(--color-bd-dark), inset -0.5px 0 var(--color-bd-dark);
+  box-shadow: 0.5px 0 var(--color-bd-basic), inset -0.5px 0 var(--color-bd-basic);
+  transition: box-shadow 0.6s ease-out, background-color 0.6s ease-out;
+  mask-repeat: no-repeat;
+  mask-position: center;
 
   &:nth-child(5n):not(:last-child) {
-    box-shadow: 1.5px 0 var(--color-bd-black), inset -1.5px 0 var(--color-bd-black);
+    box-shadow: 2px 0 var(--color-bd-second), inset -2px 0 var(--color-bd-second);
   }
 
   &--box {
@@ -47,11 +52,9 @@
       content: "";
       width: 100%;
       height: 100%;
-      background-color: var(--color-bg-box);
-      transition: background-color 0.3s ease-out;
-      mask-repeat: no-repeat;
+      background-color: var(--color-bg-cell-flag);
+      transition: background-color 0.6s ease-out;
       mask-image: url("../assets/img/icons/box.svg");
-      mask-position: center;
     }
   }
 
@@ -60,11 +63,9 @@
       content: "";
       width: calc(var(--cell-size) - 2px);
       height: calc(var(--cell-size) - 2px);
-      background-color: var(--color-bg-box);
-      transition: background-color 0.3s ease-out;
-      mask-repeat: no-repeat;
+      background-color: var(--color-bg-cell-flag);
+      transition: background-color 0.6s ease-out;
       mask-image: url("../assets/img/icons/cross.svg");
-      mask-position: center;
     }
   }
 }

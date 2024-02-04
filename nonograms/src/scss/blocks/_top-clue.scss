@@ -2,17 +2,19 @@
   display: flex;
   grid-area: 1 / 2 / 2 / 3;
   background-color: var(--color-bg-clue);
-  box-shadow: inset 1.5px -1.5px var(--color-bd-black), -1.5px 0 var(--color-bd-black);
+  box-shadow: inset 2px -2px var(--color-bd-second), -2px 0 var(--color-bd-second);
+  transition: background-color 0.6s ease-out, box-shadow 0.6s ease-out;
 }
 
 .top-clue__column {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  box-shadow: 0.5px 0 0 var(--color-bd-dark), inset -0.5px 0 0 var(--color-bd-dark);
+  box-shadow: 0.5px 0 0 var(--color-bd-basic), inset -0.5px 0 0 var(--color-bd-basic);
+  transition: box-shadow 0.6s ease-out;
 
   &:nth-child(5n):not(:last-child) {
-    box-shadow: 1.5px 0 0 var(--color-bd-black), inset -1.5px 0 0 var(--color-bd-black);
+    box-shadow: 2px 0 0 var(--color-bd-second), inset -2px 0 0 var(--color-bd-second);
   }
 }
 

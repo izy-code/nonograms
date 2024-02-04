@@ -1,4 +1,5 @@
 @use "forward" as *;
+@use "sass:color";
 
 *,
 *::before,
@@ -21,8 +22,30 @@ body {
   font-size: 18px;
   line-height: 150%;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-text-basic);
   background-color: var(--color-bg-body);
+}
+
+.dark-theme {
+  --color-text-basic: #{$color-eerie-black};
+  --color-text-second: #{$color-black};
+  --color-text-success: #{$color-darker-green};
+
+  --color-bg-body: #{$color-pine-tree};
+  --color-bg-heading: #{$color-medium-purple};
+  --color-bg-gameboard: #{$color-medium-purple};
+  --color-bg-clue: #{$color-dim-gray};
+  --color-bg-gamefield: #{$color-warm-gray};
+  --color-bg-cell-flag: #{$color-indigo};
+  --color-bg-modal: #{$color-dim-gray};
+  --color-bg-backdrop: #{color.adjust($color-eerie-black, $alpha: -0.2)};
+
+  --color-btn-basic: #{$color-medium-purple};
+  --color-btn-hover: #{$color-major-blue};
+  --color-btn-active: #{$color-dark-slate-blue};
+
+  --color-bd-basic: #{$color-dark-blue};
+  --color-bd-second: #{$color-root-bear};
 }
 
 .no-scroll {

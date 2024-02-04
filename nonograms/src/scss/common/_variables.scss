@@ -5,48 +5,52 @@ $width-laptop: 1100px;
 $width-tablet: 768px;
 $width-mobile: 500px;
 
-$color-white: #fffefe;
+// light theme
 $color-black: #000000;
-$color-dark: #403f3d;
+$color-black-olive: #403f3d;
 $color-granite: #665f55;
-$color-light-brown: #b0907a;
-$color-semi-light: #c1b6ad;
-$color-light: #e1d4c9;
-$color-grey: #f0f0f0;
-$color-red: #ff4d4d;
-$color-green: #75b781;
-$color-green-bright: #5eaa2f;
-$color-blue: #2b2ec0;
-$color-orange: #f0a658;
-$color-dark-orange: #d68e40;
-$color-brown-orange: #ce802d;
-$color-brown: #256985;
+$color-bone: #e1d4c9;
+$color-anti-flash-white: #f0f0f0;
+$color-iguana-green: #75b781;
+$color-green: #5eaa2f;
+$color-sandy-brown: #f0a658;
+$color-pastel-yellow: #d68e40;
+$color-chinese-bronze: #ce802d;
+$color-teal-blue: #256985;
+
+// dark theme
+$color-eerie-black: #17161a;
+$color-dim-gray: #68676f;
+$color-warm-gray: #88817b;
+$color-indigo: #232361;
+$color-pine-tree: #272822;
+$color-darker-green: #4f8f27;
+$color-medium-purple: #6554c2;
+$color-major-blue: #5746bb;
+$color-dark-slate-blue: #473c8d;
+$color-dark-blue: #151547;
+$color-root-bear: #2b0e01;
 
 :root {
   --font-primary: "Arial", sans-serif;
 
-  --color-text-dark: #{$color-dark};
-  --color-text-light: #{$color-light};
-  --color-text-alert: #{$color-red};
-  --color-text-success: #{$color-green-bright};
-  --color-text-accent: #{$color-blue};
-  --color-text-black: #{$color-black};
+  --color-text-basic: #{$color-black-olive};
+  --color-text-second: #{$color-black};
+  --color-text-success: #{$color-green};
 
-  --color-bg-body: #{$color-green};
-  --color-bg-heading: #{$color-orange};
-  --color-bg-main: #{$color-white};
-  --color-bg-modal: #{$color-light};
-  --color-bg-backdrop: #{color.adjust($color-dark, $alpha: -0.2)};
-  --color-bg-gameboard: #{$color-orange};
-  --color-bg-gamefield: #{$color-grey};
-  --color-bg-clue: #{$color-light};
-  --color-bg-box: #{$color-brown};
-  --color-bg-cross: #{$color-brown};
+  --color-bg-body: #{$color-iguana-green};
+  --color-bg-heading: #{$color-sandy-brown};
+  --color-bg-gameboard: #{$color-sandy-brown};
+  --color-bg-clue: #{$color-bone};
+  --color-bg-gamefield: #{$color-anti-flash-white};
+  --color-bg-cell-flag: #{$color-teal-blue};
+  --color-bg-modal: #{$color-bone};
+  --color-bg-backdrop: #{color.adjust($color-black-olive, $alpha: -0.2)};
 
-  --color-btn-basic: #{$color-orange};
-  --color-btn-hover: #{$color-dark-orange};
-  --color-btn-active: #{$color-brown-orange};
+  --color-btn-basic: #{$color-sandy-brown};
+  --color-btn-hover: #{$color-pastel-yellow};
+  --color-btn-active: #{$color-chinese-bronze};
 
-  --color-bd-dark: #{$color-granite};
-  --color-bd-black: #{$color-black};
+  --color-bd-basic: #{$color-granite};
+  --color-bd-second: #{$color-black};
 }

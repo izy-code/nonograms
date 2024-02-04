@@ -13,31 +13,31 @@
   padding: 4px;
   font-size: inherit;
   font-weight: inherit;
-  color: var(--color-text-dark);
+  color: var(--color-text-basic);
   background-color: var(--color-btn-basic);
-  border: 2px solid var(--color-bd-dark);
+  border: 2px solid var(--color-bd-basic);
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+  transition: background-color 0.6s ease-out, color 0.6s ease-out, border-color 0.6s ease-out;
 
   &:hover,
   &:focus-visible {
     @include media-hover {
       background-color: var(--color-btn-hover);
-      border-color: var(--color-bd-black);
+      border-color: var(--color-bd-second);
     }
   }
 
   &:active {
-    color: var(--color-text-black);
+    color: var(--color-text-second);
     background-color: var(--color-btn-active);
-    border-color: var(--color-bd-black);
+    border-color: var(--color-bd-second);
   }
 
   &:disabled {
-    color: var(--color-text-dark);
+    color: var(--color-text-basic);
     background-color: var(--color-btn-basic);
-    border: 2px solid var(--color-bd-dark);
+    border: 2px solid var(--color-bd-basic);
     opacity: 0.6;
     cursor: default;
   }

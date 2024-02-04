@@ -3,7 +3,8 @@ const LOCAL_STORAGE_KEY = 'izyNonogram';
 const isLocalStorageObjectExist = () =>
   localStorage.hasOwnProperty(LOCAL_STORAGE_KEY);
 
-const getLocalStorageObject = () => JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+const getLocalStorageObject = () =>
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
 const setLocalStorageObject = (object) =>
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(object));
@@ -14,6 +15,10 @@ const getLocalStorageProperty = (key) => {
   }
 
   const localStorageObject = getLocalStorageObject();
+
+  if (localStorageObject[key] === undefined) {
+    return null;
+  }
 
   return localStorageObject[key];
 };

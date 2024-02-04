@@ -15,8 +15,9 @@
   margin: 0;
   padding: 10px;
   background-color: var(--color-bg-heading);
-  border: 3px solid var(--color-bd-dark);
+  border: 3px solid var(--color-bd-basic);
   border-radius: 12px;
+  transition: background-color 0.6s ease-out, border-color 0.6s ease-out;
 }
 
 .header__timer {
@@ -27,8 +28,9 @@
   font-size: 1.25rem;
   line-height: 24px;
   background-color: var(--color-bg-heading);
-  border: 2px solid var(--color-bd-dark);
+  border: 2px solid var(--color-bd-basic);
   border-radius: 5px;
+  transition: background-color 0.6s ease-out, border-color 0.6s ease-out;
 }
 
 .header__selects {
@@ -48,10 +50,10 @@
   font-weight: inherit;
   color: inherit;
   background-color: var(--color-bg-heading);
-  border: 2px solid var(--color-bd-dark);
+  border: 2px solid var(--color-bd-basic);
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease-out, border-color 0.3s ease-out, outline 0.3s ease-out;
+  transition: background-color 0.6s ease-out, border-color 0.6s ease-out, outline 0.6s ease-out;
 
   &--template {
     min-width: 152px;
@@ -61,13 +63,13 @@
   &:focus-visible {
     @include media-hover {
       background-color: var(--color-btn-hover);
-      border-color: var(--color-bd-black);
-      outline: 0 solid var(--color-bd-black);
+      border-color: var(--color-bd-second);
+      outline: 0 solid var(--color-bd-second);
     }
   }
 
   &:focus-within {
-    outline: 1px solid var(--color-bd-black);
+    outline: 1px solid var(--color-bd-second);
   }
 }
 
@@ -85,19 +87,19 @@
   width: 48px;
   height: 48px;
   padding: 0;
-  color: var(--color-text-dark);
+  color: var(--color-text-basic);
   background-color: var(--color-btn-basic);
-  border: 2px solid var(--color-bd-dark);
+  border: 2px solid var(--color-bd-basic);
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+  transition: background-color 0.6s ease-out, color 0.6s ease-out, border-color 0.6s ease-out;
 
   &::before {
     content: "";
     width: 36px;
     height: 36px;
-    background-color: var(--color-text-dark);
-    transition: background-color 0.3s ease-out;
+    background-color: var(--color-text-basic);
+    transition: background-color 0.6s ease-out;
     mask-repeat: no-repeat;
   }
 
@@ -106,6 +108,8 @@
   }
 
   &--theme_dark::before {
+    width: 32px;
+    height: 32px;
     mask-image: url("../assets/img/icons/theme-dark.svg");
   }
 
@@ -127,16 +131,16 @@
   &:focus-visible {
     @include media-hover {
       background-color: var(--color-btn-hover);
-      border-color: var(--color-bd-black);
+      border-color: var(--color-bd-second);
     }
   }
 
   &:active {
     background-color: var(--color-btn-active);
-    border-color: var(--color-bd-black);
+    border-color: var(--color-bd-second);
 
     &::before {
-      background-color: var(--color-text-black);
+      background-color: var(--color-text-second);
     }
   }
 }

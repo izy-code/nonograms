@@ -10,7 +10,8 @@
   display: grid;
   height: 100%;
   background-color: var(--color-bg-gameboard);
-  outline: 4px solid var(--color-bd-black);
+  outline: 4px solid var(--color-bd-second);
+  transition: background-color 0.6s ease-out, outline 0.6s ease-out;
 
   @container main (max-width: #{$width-desktop}) {
     --inline-cell-size: calc(100cqw / (var(--field-size) + var(--left-clue-width)));
