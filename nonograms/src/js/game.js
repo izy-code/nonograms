@@ -53,7 +53,8 @@ const printSolution = (matrix) => {
 
 const getTemplateIndex = (size, name) =>
   templates.findIndex(
-    (template) => template.size === +size.split('x')[0] && template.name === name
+    (template) =>
+      template.size === +size.split('x')[0] && template.name === name
   );
 
 const onGameWin = () => {
@@ -65,7 +66,7 @@ const onGameWin = () => {
   disableSaveButton();
 };
 
-const onGameRestart = () => {
+const onGameReset = () => {
   resetGameField(currentTemplate.matrix);
   resetTimer();
   enableSaveButton();
@@ -99,7 +100,6 @@ const onGameRandom = () => {
   if (excludedDataIndexes.length === templates.length) {
     excludedDataIndexes = [randomIndex];
   }
-
 };
 
 const onTemplateChange = (evt) => {
@@ -112,7 +112,9 @@ const onTemplateChange = (evt) => {
   enableSaveButton();
 
   if (!hasTemplateChangedRandomly) {
-    excludedDataIndexes = [getTemplateIndex(currentTemplate.size, currentTemplate.name)];
+    excludedDataIndexes = [
+      getTemplateIndex(currentTemplate.size, currentTemplate.name),
+    ];
   }
 
   hasTemplateChangedRandomly = false;
@@ -134,7 +136,7 @@ const initGame = () => {
   document.addEventListener('templateChange', onTemplateChange);
   document.addEventListener('cellFlagChange', onCellFlagChange);
   document.addEventListener('gameWin', onGameWin);
-  document.addEventListener('gameRestart', onGameRestart);
+  document.addEventListener('gameReset', onGameReset);
   document.addEventListener('gameSave', onGameSave);
   document.addEventListener('gameContinue', onGameContinue);
   document.addEventListener('gameRandom', onGameRandom);

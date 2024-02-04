@@ -3,11 +3,11 @@ import { getLocalStorageProperty } from './local-storage';
 
 const footerNode = createNode(null, 'footer', 'footer');
 
-const restartButtonNode = createNode(
+const resetButtonNode = createNode(
   footerNode,
   'button',
   'footer__button',
-  'Restart game',
+  'Reset game',
   { type: 'button' }
 );
 const randomButtonNode = createNode(
@@ -51,8 +51,8 @@ if (getLocalStorageProperty('savedTemplateSize') === null) {
   continueButtonNode.disabled = true;
 }
 
-restartButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameRestart');
+resetButtonNode.addEventListener('click', () => {
+  dispatchCustomEvent(document, 'gameReset');
 });
 saveButtonNode.addEventListener('click', () => {
   dispatchCustomEvent(document, 'gameSave');
