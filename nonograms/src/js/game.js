@@ -24,8 +24,21 @@ import {
   getLocalStorageProperty,
   setLocalStorageProperty,
 } from './local-storage';
+import { templates } from './templates';
 
+let excludedDataIndexes = [];
 let currentTemplate = {};
+let hasTemplateChangedRandomly = false;
+
+const getRandomIndex = () => {
+  const availableDataIndexes = [...templates.keys()].filter(
+    (index) => !excludedDataIndexes.includes(index)
+  );
+
+  return availableDataIndexes[
+    Math.floor(Math.random() * availableDataIndexes.length)
+  ];
+};
 
 const printSolution = (matrix) => {
   let result = '';
@@ -37,6 +50,11 @@ const printSolution = (matrix) => {
   console.clear();
   console.log(result);
 };
+
+const getTemplateIndex = (size, name) =>
+  templates.findIndex(
+    (template) => template.size === +size.split('x')[0] && template.name === name
+  );
 
 const onGameWin = () => {
   stopTimer();
@@ -70,6 +88,20 @@ const onGameContinue = () => {
   disableSaveButton();
 };
 
+const onGameRandom = () => {
+  hasTemplateChangedRandomly = true;
+  const randomIndex = getRandomIndex();
+  const { size } = templates[randomIndex];
+
+  setTemplateValues(`${size}x${size}`, templates[randomIndex].name);
+  excludedDataIndexes.push(randomIndex);
+
+  if (excludedDataIndexes.length === templates.length) {
+    excludedDataIndexes = [randomIndex];
+  }
+
+};
+
 const onTemplateChange = (evt) => {
   currentTemplate = evt.detail;
 
@@ -78,6 +110,12 @@ const onTemplateChange = (evt) => {
   printSolution(currentTemplate.matrix);
 
   enableSaveButton();
+
+  if (!hasTemplateChangedRandomly) {
+    excludedDataIndexes = [getTemplateIndex(currentTemplate.size, currentTemplate.name)];
+  }
+
+  hasTemplateChangedRandomly = false;
 };
 
 const onCellFlagChange = (evt) => {
@@ -99,6 +137,7 @@ const initGame = () => {
   document.addEventListener('gameRestart', onGameRestart);
   document.addEventListener('gameSave', onGameSave);
   document.addEventListener('gameContinue', onGameContinue);
+  document.addEventListener('gameRandom', onGameRandom);
   document.addEventListener('timerStart', startTimer);
 };
 

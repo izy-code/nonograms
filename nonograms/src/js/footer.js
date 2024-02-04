@@ -65,5 +65,8 @@ continueButtonNode.addEventListener('click', () => {
     dispatchCustomEvent(document, 'gameContinue');
   }
 });
+randomButtonNode.addEventListener('click', () => {
+  dispatchCustomEvent(document, 'gameRandom');
+});
 
 export { footerNode, disableSaveButton, enableSaveButton };
