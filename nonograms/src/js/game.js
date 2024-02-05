@@ -5,13 +5,13 @@ import {
   fillFlaggedCells,
   showSolution,
 } from './game-field';
-import { showModal } from './modal';
+import { showModalWinMessage, showModalScores } from './modal';
 import { setTemplateValues } from './template-select';
 import {
   disableSaveButton,
   enableSaveButton,
   enableSolutionButton,
-  disableSolutionButton
+  disableSolutionButton,
 } from './footer';
 import {
   startTimer,
@@ -19,6 +19,7 @@ import {
   stopTimer,
   setTimer,
   getPassedTimeInSeconds,
+  getFormattedTime,
 } from './timer';
 import {
   playBoxCellSound,
@@ -29,8 +30,11 @@ import {
 import {
   getLocalStorageProperty,
   setLocalStorageProperty,
+  addWin,
+  getWins,
 } from './local-storage';
 import { templates } from './templates';
+import { enableScoresButton } from './header';
 
 let excludedDataIndexes = [];
 let currentTemplate = {};
@@ -65,12 +69,21 @@ const getTemplateIndex = (size, name) =>
 
 const onGameWin = () => {
   stopTimer();
-  showModal(
-    `You have solved the ${currentTemplate.name.toLowerCase()} nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
+  showModalWinMessage(
+    `You have solved the ${
+      currentTemplate.name
+    } nonogram in ${getPassedTimeInSeconds()}\u00A0seconds!`
   );
   playWinSound();
+  enableScoresButton();
   disableSaveButton();
   disableSolutionButton();
+  addWin(
+    currentTemplate.size,
+    currentTemplate.name,
+    getPassedTimeInSeconds(),
+    getFormattedTime()
+  );
 };
 
 const onGameReset = () => {
@@ -116,6 +129,10 @@ const onGameSolution = () => {
   disableSaveButton();
 };
 
+const onScoresShow = () => {
+  showModalScores(getWins());
+};
+
 const onTemplateChange = (evt) => {
   currentTemplate = evt.detail;
 
@@ -157,6 +174,7 @@ const initGame = () => {
   document.addEventListener('gameRandom', onGameRandom);
   document.addEventListener('gameSolution', onGameSolution);
   document.addEventListener('timerStart', startTimer);
+  document.addEventListener('scoresShow', onScoresShow);
 };
 
 export { initGame };

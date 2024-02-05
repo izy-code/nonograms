@@ -1,4 +1,5 @@
 const LOCAL_STORAGE_KEY = 'izyNonogram';
+const WINS_LIST_LENGTH = 5;
 
 const isLocalStorageObjectExist = () =>
   localStorage.hasOwnProperty(LOCAL_STORAGE_KEY);
@@ -32,4 +33,19 @@ const setLocalStorageProperty = (key, value) => {
   setLocalStorageObject(localStorageObject);
 };
 
-export { getLocalStorageProperty, setLocalStorageProperty };
+const addWin = (size, name, time, formattedTime) => {
+  let wins = getLocalStorageProperty('wins');
+
+  if (wins === null) wins = [];
+
+  if (wins.length >= WINS_LIST_LENGTH) {
+    wins.shift();
+  }
+
+  wins.push({ size, name, time, formattedTime });
+  setLocalStorageProperty('wins', wins);
+};
+
+const getWins = () => getLocalStorageProperty('wins');
+
+export { getLocalStorageProperty, setLocalStorageProperty, addWin, getWins };

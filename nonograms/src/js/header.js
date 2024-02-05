@@ -1,4 +1,4 @@
-import { createNode } from './util';
+import { createNode, dispatchCustomEvent } from './util';
 import { getTimerNode } from './timer';
 import { getSelectsWrapperNode, initTemplateSelect } from './template-select';
 import { getSoundItemNode } from './sound';
@@ -46,6 +46,22 @@ const themeButtonTextNode = createNode(
 );
 createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
+const enableScoresButton = () => {
+  scoresButtonNode.disabled = false;
+};
+
+const initHeader = () => {
+  initTemplateSelect();
+
+  if (theme === 'dark') {
+    document.body.classList.add('dark-theme');
+  }
+
+  if (getLocalStorageProperty('wins') === null) {
+    scoresButtonNode.disabled = true;
+  }
+};
+
 themeButtonNode.addEventListener('click', () => {
   if (theme === 'light') {
     theme = 'dark';
@@ -62,12 +78,10 @@ themeButtonNode.addEventListener('click', () => {
   setLocalStorageProperty('theme', theme);
 });
 
-const initHeader = () => {
-  initTemplateSelect();
+scoresButtonNode.addEventListener('click', () => {
+  if (getLocalStorageProperty('wins') === null) {
+    scoresButtonNode.disabled = true;
+  } else dispatchCustomEvent(document, 'scoresShow');
+});
 
-  if (theme === 'dark') {
-    document.body.classList.add('dark-theme');
-  }
-};
-
-export { headerNode, initHeader };
+export { headerNode, initHeader, enableScoresButton };

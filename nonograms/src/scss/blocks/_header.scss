@@ -143,4 +143,12 @@
       background-color: var(--color-text-second);
     }
   }
+
+  &:disabled {
+    color: var(--color-text-basic);
+    background-color: var(--color-btn-basic);
+    border: 2px solid var(--color-bd-basic);
+    opacity: 0.6;
+    cursor: default;
+  }
 }
