@@ -2,7 +2,6 @@ import { createNode, dispatchCustomEvent } from './util';
 import { getLocalStorageProperty } from './local-storage';
 
 const footerNode = createNode(null, 'footer', 'footer');
-
 const resetButtonNode = createNode(
   footerNode,
   'button',
@@ -55,36 +54,39 @@ const enableSolutionButton = () => {
   solutionButtonNode.disabled = false;
 };
 
-if (getLocalStorageProperty('savedTemplateSize') === null) {
-  continueButtonNode.disabled = true;
-}
-
-resetButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameReset');
-});
-saveButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameSave');
-  continueButtonNode.disabled = false;
-});
-continueButtonNode.addEventListener('click', () => {
+const initFooter = () => {
   if (getLocalStorageProperty('savedTemplateSize') === null) {
     continueButtonNode.disabled = true;
-  } else {
-    dispatchCustomEvent(document, 'gameContinue');
   }
-});
-randomButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameRandom');
-});
-solutionButtonNode.addEventListener('click', () => {
-  dispatchCustomEvent(document, 'gameSolution');
-  disableSolutionButton();
-});
+
+  resetButtonNode.addEventListener('click', () => {
+    dispatchCustomEvent(document, 'gameReset');
+  });
+  saveButtonNode.addEventListener('click', () => {
+    dispatchCustomEvent(document, 'gameSave');
+    continueButtonNode.disabled = false;
+  });
+  continueButtonNode.addEventListener('click', () => {
+    if (getLocalStorageProperty('savedTemplateSize') === null) {
+      continueButtonNode.disabled = true;
+    } else {
+      dispatchCustomEvent(document, 'gameContinue');
+    }
+  });
+  randomButtonNode.addEventListener('click', () => {
+    dispatchCustomEvent(document, 'gameRandom');
+  });
+  solutionButtonNode.addEventListener('click', () => {
+    dispatchCustomEvent(document, 'gameSolution');
+    disableSolutionButton();
+  });
+};
 
 export {
   footerNode,
+  initFooter,
   disableSaveButton,
   enableSaveButton,
   disableSolutionButton,
-  enableSolutionButton
+  enableSolutionButton,
 };
