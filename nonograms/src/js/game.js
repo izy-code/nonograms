@@ -1,12 +1,14 @@
+import { enableScoresButton } from './header';
+import { setTemplateValues } from './template-select';
 import { initGameBoard } from './game-board';
+import { showModalWinMessage, showModalScores } from './modal';
+import { templates } from './templates';
 import {
   resetGameField,
   getFlaggedCells,
   fillFlaggedCells,
   showSolution,
 } from './game-field';
-import { showModalWinMessage, showModalScores } from './modal';
-import { setTemplateValues } from './template-select';
 import {
   disableSaveButton,
   enableSaveButton,
@@ -33,8 +35,6 @@ import {
   addWin,
   getWins,
 } from './local-storage';
-import { templates } from './templates';
-import { enableScoresButton } from './header';
 
 let excludedDataIndexes = [];
 let currentTemplate = {};
@@ -111,10 +111,10 @@ const onGameContinue = () => {
 };
 
 const onGameRandom = () => {
-  hasTemplateChangedRandomly = true;
   const randomIndex = getRandomIndex();
   const { size } = templates[randomIndex];
 
+  hasTemplateChangedRandomly = true;
   setTemplateValues(`${size}x${size}`, templates[randomIndex].name);
   excludedDataIndexes.push(randomIndex);
 
@@ -137,9 +137,8 @@ const onTemplateChange = (evt) => {
   currentTemplate = evt.detail;
 
   initGameBoard(currentTemplate.matrix);
-  resetTimer();
   printSolution(currentTemplate.matrix);
-
+  resetTimer();
   enableSaveButton();
   enableSolutionButton();
 
