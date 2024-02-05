@@ -1,28 +1,20 @@
 import { createNode, dispatchCustomEvent } from './util';
-import { getTimerNode } from './timer';
-import { getSelectsWrapperNode, initTemplateSelect } from './template-select';
-import { getSoundItemNode } from './sound';
+import { timerNode } from './timer';
+import { selectsWrapperNode, initTemplateSelect } from './template-select';
+import { soundItemNode } from './sound';
 import {
   getLocalStorageProperty,
   setLocalStorageProperty,
 } from './local-storage';
 
 const localStorageTheme = getLocalStorageProperty('theme');
-
 let theme = localStorageTheme === null ? 'light' : localStorageTheme;
 
 const headerNode = createNode(null, 'header', 'header');
-
-createNode(headerNode, 'h1', 'header__title', 'Nonograms');
-
-headerNode.append(getTimerNode(), getSelectsWrapperNode());
-
-const buttonsListNode = createNode(headerNode, 'ul', 'header__buttons');
-
-const themeItemNode = createNode(buttonsListNode, 'li', 'header__item');
-buttonsListNode.append(getSoundItemNode());
-const scoresItemNode = createNode(buttonsListNode, 'li', 'header__item');
-
+const titleNode = createNode(null, 'h1', 'header__title', 'Nonograms');
+const buttonsListNode = createNode(null, 'ul', 'header__buttons');
+const themeItemNode = createNode(null, 'li', 'header__item');
+const scoresItemNode = createNode(null, 'li', 'header__item');
 const themeButtonNode = createNode(
   themeItemNode,
   'button',
@@ -37,7 +29,6 @@ const scoresButtonNode = createNode(
   '',
   { type: 'button' }
 );
-
 const themeButtonTextNode = createNode(
   themeButtonNode,
   'span',
@@ -46,8 +37,33 @@ const themeButtonTextNode = createNode(
 );
 createNode(scoresButtonNode, 'span', 'visually-hidden', 'High score table');
 
+headerNode.append(titleNode, timerNode, selectsWrapperNode, buttonsListNode);
+buttonsListNode.append(themeItemNode, soundItemNode, scoresItemNode);
+
 const enableScoresButton = () => {
   scoresButtonNode.disabled = false;
+};
+
+const onThemeButtonClick = () => {
+  if (theme === 'light') {
+    theme = 'dark';
+  } else {
+    theme = 'light';
+  }
+
+  document.body.classList.toggle('dark-theme');
+  setLocalStorageProperty('theme', theme);
+  themeButtonNode.classList.toggle('header__button--theme_light');
+  themeButtonNode.classList.toggle('header__button--theme_dark');
+  themeButtonTextNode.textContent = `${theme
+    .charAt(0)
+    .toUpperCase()}${theme.slice(1)} theme`;
+};
+
+const onScoresButtonClick = () => {
+  if (getLocalStorageProperty('wins') === null) {
+    scoresButtonNode.disabled = true;
+  } else dispatchCustomEvent(document, 'scoresShow');
 };
 
 const initHeader = () => {
@@ -60,28 +76,9 @@ const initHeader = () => {
   if (getLocalStorageProperty('wins') === null) {
     scoresButtonNode.disabled = true;
   }
+
+  themeButtonNode.addEventListener('click', onThemeButtonClick);
+  scoresButtonNode.addEventListener('click', onScoresButtonClick);
 };
-
-themeButtonNode.addEventListener('click', () => {
-  if (theme === 'light') {
-    theme = 'dark';
-  } else {
-    theme = 'light';
-  }
-
-  themeButtonTextNode.textContent = `${theme
-    .charAt(0)
-    .toUpperCase()}${theme.slice(1)} theme`;
-  themeButtonNode.classList.toggle('header__button--theme_light');
-  themeButtonNode.classList.toggle('header__button--theme_dark');
-  document.body.classList.toggle('dark-theme');
-  setLocalStorageProperty('theme', theme);
-});
-
-scoresButtonNode.addEventListener('click', () => {
-  if (getLocalStorageProperty('wins') === null) {
-    scoresButtonNode.disabled = true;
-  } else dispatchCustomEvent(document, 'scoresShow');
-});
 
 export { headerNode, initHeader, enableScoresButton };

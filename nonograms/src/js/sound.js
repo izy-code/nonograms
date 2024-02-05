@@ -41,8 +41,6 @@ const playCrossCellSound = () => playSound(crossCellSound);
 const playEmptyCellSound = () => playSound(emptyCellSound);
 const playWinSound = () => playSound(winSound);
 
-const getSoundItemNode = () => soundItemNode;
-
 soundButtonNode.addEventListener('click', () => {
   isSoundOn = !isSoundOn;
   soundButtonTextNode.textContent = isSoundOn ? 'Sound on' : 'Sound off';
@@ -52,7 +50,7 @@ soundButtonNode.addEventListener('click', () => {
 });
 
 export {
-  getSoundItemNode,
+  soundItemNode,
   playBoxCellSound,
   playCrossCellSound,
   playEmptyCellSound,

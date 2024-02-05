@@ -48,10 +48,8 @@ const setTimer = (timeInSeconds) => {
   startTimer();
 };
 
-const getTimerNode = () => timerNode;
-
 export {
-  getTimerNode,
+  timerNode,
   startTimer,
   stopTimer,
   resetTimer,

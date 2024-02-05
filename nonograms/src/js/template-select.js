@@ -79,6 +79,4 @@ const setTemplateValues = (sizeValue, templateValue) => {
   templateSelectNode.dispatchEvent(new Event('change'));
 };
 
-const getSelectsWrapperNode = () => selectsWrapperNode;
-
-export { getSelectsWrapperNode, initTemplateSelect, setTemplateValues };
+export { selectsWrapperNode, initTemplateSelect, setTemplateValues };
