@@ -140,7 +140,7 @@ function blockGameField() {
   cleanCrossedCells();
 }
 
-const handleGameField = () => {
+const unblockGameField = () => {
   gameFieldNode.removeEventListener('click', onCellLeftClick);
   gameFieldNode.removeEventListener('contextmenu', onCellRightClick);
   gameFieldNode.addEventListener('click', onCellLeftClick);
@@ -154,14 +154,14 @@ const initGameField = (templateMatrix) => {
   isFirstCellClick = true;
 
   renderGameField();
-  handleGameField();
+  unblockGameField();
 };
 
 const resetGameField = () => {
   correctCellsCount = countTemplateEmptyCells();
   isFirstCellClick = true;
 
-  handleGameField();
+  unblockGameField();
   cleanFilledCells();
 };
 
