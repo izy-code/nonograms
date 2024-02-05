@@ -2,7 +2,7 @@ const LOCAL_STORAGE_KEY = 'izyNonogram';
 const WINS_LIST_LENGTH = 5;
 
 const isLocalStorageObjectExist = () =>
-  localStorage.hasOwnProperty(LOCAL_STORAGE_KEY);
+  localStorage.getItem(LOCAL_STORAGE_KEY) !== null;
 
 const getLocalStorageObject = () =>
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
