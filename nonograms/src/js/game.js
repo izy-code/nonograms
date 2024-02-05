@@ -177,4 +177,4 @@ const initGame = () => {
   document.addEventListener('scoresShow', onScoresShow);
 };
 
-export { initGame };
+export default initGame;
