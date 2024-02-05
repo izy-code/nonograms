@@ -1,6 +1,6 @@
 import { createNode, dispatchCustomEvent } from './util';
 import { timerNode } from './timer';
-import { selectsWrapperNode, initTemplateSelect } from './template-select';
+import { selectsWrapperNode } from './template-select';
 import { soundItemNode } from './sound';
 import {
   getLocalStorageProperty,
@@ -67,8 +67,6 @@ const onScoresButtonClick = () => {
 };
 
 const initHeader = () => {
-  initTemplateSelect();
-
   if (theme === 'dark') {
     document.body.classList.add('dark-theme');
   }
