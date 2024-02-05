@@ -1,5 +1,5 @@
 import { createNode } from './util';
-import { getGameFieldNode, initGameField } from './game-field';
+import { gameFieldNode, initGameField } from './game-field';
 
 const CluePosition = {
   TOP: 'top',
@@ -8,18 +8,10 @@ const CluePosition = {
 
 const mainNode = createNode(null, 'main', 'main-content');
 const gameBoardNode = createNode(mainNode, 'div', 'game-board');
-const topClueNode = createNode(
-  gameBoardNode,
-  'div',
-  'game-board__top-clue top-clue'
-);
-const leftClueNode = createNode(
-  gameBoardNode,
-  'div',
-  'game-board__left-clue left-clue'
-);
+const topClueNode = createNode(null, 'div', 'game-board__top-clue top-clue');
+const leftClueNode = createNode(null, 'div', 'game-board__left-clue left-clue');
 
-gameBoardNode.append(getGameFieldNode());
+gameBoardNode.append(topClueNode, leftClueNode, gameFieldNode);
 
 const renderClueNode = (size, clues, position) => {
   const clueNode = position === CluePosition.LEFT ? leftClueNode : topClueNode;
@@ -57,12 +49,14 @@ const getLeftClues = (matrix) => {
 
   const leftClueWidth = Math.max(...steppedMatrix.map((row) => row.length));
 
-  return steppedMatrix.map((row) => {
+  const paddedMatrix = steppedMatrix.map((row) => {
     const paddingLength = leftClueWidth - row.length;
-    const paddingStart = Array(paddingLength).fill('');
+    const startingPadding = Array(paddingLength).fill('');
 
-    return [...paddingStart, ...row];
+    return [...startingPadding, ...row];
   });
+
+  return paddedMatrix;
 };
 
 const getTopClues = (matrix) => {
@@ -73,7 +67,7 @@ const getTopClues = (matrix) => {
   return getLeftClues(transposedMatrix);
 };
 
-const initClueNodes = (matrix) => {
+const initCluesAndStyles = (matrix) => {
   const leftClues = getLeftClues(matrix);
   const topClues = getTopClues(matrix);
   const topClueHeight = topClues[0].length;
@@ -88,7 +82,7 @@ const initClueNodes = (matrix) => {
 };
 
 const initGameBoard = (templateMatrix) => {
-  initClueNodes(templateMatrix);
+  initCluesAndStyles(templateMatrix);
   initGameField(templateMatrix);
 };
 

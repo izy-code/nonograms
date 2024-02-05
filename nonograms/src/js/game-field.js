@@ -226,12 +226,10 @@ const showSolution = () => {
   });
 };
 
-const getGameFieldNode = () => gameFieldNode;
-
 gameFieldNode.addEventListener('contextmenu', (evt) => evt.preventDefault());
 
 export {
-  getGameFieldNode,
+  gameFieldNode,
   initGameField,
   resetGameField,
   getFlaggedCells,
