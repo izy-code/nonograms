@@ -34,7 +34,7 @@ const continueButtonNode = createNode(
   footerNode,
   'button',
   'footer__button',
-  'Continue saved game',
+  'Continue last game',
   { type: 'button' }
 );
 

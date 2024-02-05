@@ -2,15 +2,15 @@
 
 .footer {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   justify-content: space-between;
   width: 100%;
-  max-width: 700px;
+  max-width: 650px;
   padding: 0 20px 20px;
 }
 
 .footer__button {
-  padding: 4px;
+  padding: 6px;
   font-size: inherit;
   font-weight: inherit;
   color: var(--color-text-basic);
