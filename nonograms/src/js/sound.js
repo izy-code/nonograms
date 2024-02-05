@@ -8,10 +8,8 @@ import {
   setLocalStorageProperty,
 } from './local-storage';
 
-const localStorageSoundProperty = getLocalStorageProperty('isSoundOn');
-
-let isSoundOn =
-  localStorageSoundProperty === null ? true : localStorageSoundProperty;
+const localStorageSound = getLocalStorageProperty('isSoundOn');
+let isSoundOn = localStorageSound === null ? true : localStorageSound;
 
 const soundItemNode = createNode(null, 'li', 'header__item');
 const soundButtonNode = createNode(
@@ -43,10 +41,10 @@ const playWinSound = () => playSound(winSound);
 
 soundButtonNode.addEventListener('click', () => {
   isSoundOn = !isSoundOn;
-  soundButtonTextNode.textContent = isSoundOn ? 'Sound on' : 'Sound off';
+  setLocalStorageProperty('isSoundOn', isSoundOn);
   soundButtonNode.classList.toggle('header__button--sound_on');
   soundButtonNode.classList.toggle('header__button--sound_off');
-  setLocalStorageProperty('isSoundOn', isSoundOn);
+  soundButtonTextNode.textContent = isSoundOn ? 'Sound on' : 'Sound off';
 });
 
 export {
