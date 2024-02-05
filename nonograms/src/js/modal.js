@@ -14,7 +14,6 @@ const titleNode = createNode(contentNode, 'h2', 'modal__title');
 const buttonNode = createNode(contentNode, 'button', 'modal__button', 'OK', {
   type: 'button',
 });
-
 const textNode = createNode(null, 'p', 'modal__text');
 const tableNode = createNode(null, 'table', 'modal__table');
 
@@ -88,17 +87,17 @@ const closeModal = () => {
   }, OPACITY_TRANSITION_TIME_MS);
 };
 
-function onDocumentEscapeKeydown(evt) {
+const onDocumentEscapeKeydown = (evt) => {
   if (evt.key === 'Escape') {
     closeModal();
   }
-}
+};
 
-function onModalClick(evt) {
+const onModalClick = (evt) => {
   if (!evt.composedPath().includes(contentNode)) {
     closeModal();
   }
-}
+};
 
 document.addEventListener('keydown', onDocumentEscapeKeydown);
 buttonNode.addEventListener('click', closeModal);
