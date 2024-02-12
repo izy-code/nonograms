@@ -1,5 +1,5 @@
 Deploy: [link](https://rolling-scopes-school.github.io/izy-code-JSFE2023Q4/nonograms/)
-![nonograms](https://github.com/rolling-scopes-school/izy-code-JSFE2023Q4/assets/126877709/0aa4c9ce-1a6f-4a4e-9a44-a82e7f7814f2)
+![nonograms](https://github.com/izy-code/nonograms/assets/126877709/a4968150-983c-4d4f-80c4-1c66bba7c8f0)
 Task: [link](https://github.com/rolling-scopes-school/tasks/tree/master/tasks/nonograms)
   - [x] responsive layout up to 500px screen width
   - [x] at the beginning state of the game, the frame has size 5x5. The sequence of numbers is logically arranged and help the player solve the nonogram
