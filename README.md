@@ -1,4 +1,4 @@
-Deploy: [link](https://rolling-scopes-school.github.io/izy-code-JSFE2023Q4/nonograms/)
+Deploy: [link](https://izy-code.github.io/nonograms/)
 ![nonograms](https://github.com/izy-code/nonograms/assets/126877709/a4968150-983c-4d4f-80c4-1c66bba7c8f0)
 Task: [link](https://github.com/rolling-scopes-school/tasks/tree/master/tasks/nonograms)
   - [x] responsive layout up to 500px screen width
